@@ -850,32 +850,19 @@
 
     <h2>
       <span class="section-number">2</span>
-      Wynik z Qualysa
+      Wyszukaj aplikacje
     </h2>
 
     <p class="card-subtitle">
-      Jedna aplikacja na linię działa najlepiej. Możesz wpisać zwykłą nazwę
-      typu <strong>Forticlient</strong>, <strong>Chrome</strong>,
-      <strong>Teams</strong> albo <strong>OneDrive</strong>.
+      To jest jedyne pole wyszukiwania. Wpisz jedną aplikację albo wklej całą listę
+      z Qualysa — po jednej nazwie na linię. Generator jednocześnie przeszukuje
+      aktualną bazę Homebrew Cask i nasze profile specjalne.
     </p>
-
-    <div class="notice blue">
-      <div class="notice-icon">🛡️</div>
-      <div>
-        <strong>FortiClient jest obsługiwany jako profil specjalny</strong>
-        <p>
-          Nawet jeśli nie występuje aktualnie w głównej bazie Homebrew Cask,
-          wpisanie „Forticlient” ma zwrócić wynik „FortiClient”.
-          Generator uruchomi oficjalny wbudowany aktualizator Fortinet zamiast próbować
-          podmieniać klienta przez niepewny Cask.
-        </p>
-      </div>
-    </div>
 
     <div class="status-row">
       <div id="dbStatus" class="status-pill loading">
         <span class="spinner"></span>
-        Ładowanie bazy Homebrew…
+        Ładowanie bazy aplikacji…
       </div>
 
       <button
@@ -888,7 +875,8 @@
 
     <textarea
       id="qualysInput"
-      placeholder="Przykład:
+      oninput="handleUnifiedSearchInput()"
+      placeholder="Wpisz nazwę albo wklej listę, np.:
 
 Forticlient
 Google Chrome
@@ -902,7 +890,7 @@ Adobe Acrobat Reader"
         class="btn btn-primary"
         onclick="recognizeQualys()"
       >
-        🔎 Wyszukaj aplikacje
+        🔎 Szukaj teraz
       </button>
 
       <button
@@ -911,6 +899,18 @@ Adobe Acrobat Reader"
       >
         Wyczyść
       </button>
+    </div>
+
+    <div class="notice blue">
+      <div class="notice-icon">💡</div>
+      <div>
+        <strong>Jedno wyszukiwanie do wszystkiego</strong>
+        <p>
+          Chrome, Teams, OneDrive i tysiące innych programów pochodzą z aktualnej
+          bazy Homebrew. FortiClient i inne wyjątki mogą być obsługiwane jako
+          profile specjalne — dla technika wygląda to dokładnie tak samo.
+        </p>
+      </div>
     </div>
 
     <div id="qualysResults" class="results"></div>
@@ -926,7 +926,7 @@ Adobe Acrobat Reader"
     </h2>
 
     <p class="card-subtitle">
-      Tutaj trafiają pakiety, które zostaną użyte w skrypcie.
+      Tutaj trafiają aplikacje wybrane z wyszukiwarki powyżej.
     </p>
 
     <div id="selectedEmpty" class="notice blue">
@@ -934,23 +934,12 @@ Adobe Acrobat Reader"
       <div>
         <strong>Brak wybranych aplikacji</strong>
         <p>
-          Wyszukaj je z wyniku Qualysa albo skorzystaj z ręcznej wyszukiwarki poniżej.
+          Wyszukaj aplikację w jednym polu powyżej i kliknij „Dodaj”.
         </p>
       </div>
     </div>
 
     <div id="selectedList" class="selected-list"></div>
-
-    <h3>Ręczne wyszukiwanie w Homebrew</h3>
-
-    <input
-      id="manualSearch"
-      type="search"
-      placeholder="Np. forticlient, chrome, zoom, citrix..."
-      oninput="handleManualSearch()"
-    />
-
-    <div id="manualResults" class="search-results"></div>
 
   </section>
 
@@ -1235,6 +1224,11 @@ async function loadCaskDatabase(force = false) {
         if (Array.isArray(cached) && cached.length > 1000) {
           caskDb = prepareDatabase(cached);
           setDbStatus("ok", `Baza aplikacji gotowa • ${caskDb.length.toLocaleString("pl-PL")} pozycji`);
+
+          if (document.getElementById("qualysInput")?.value.trim()) {
+            recognizeQualys(false);
+          }
+
           return;
         }
       }
@@ -1268,6 +1262,10 @@ async function loadCaskDatabase(force = false) {
     }
 
     setDbStatus("ok", `Baza aplikacji gotowa • ${caskDb.length.toLocaleString("pl-PL")} pozycji`);
+
+    if (document.getElementById("qualysInput")?.value.trim()) {
+      recognizeQualys(false);
+    }
 
   } catch (error) {
     console.error(error);
@@ -1621,12 +1619,38 @@ function searchCasks(query, limit = 5) {
    QUALYS SEARCH
    ============================================================ */
 
-async function recognizeQualys() {
+let unifiedSearchTimer = null;
+
+function handleUnifiedSearchInput() {
+
+  clearTimeout(unifiedSearchTimer);
 
   const input = document.getElementById("qualysInput").value.trim();
 
   if (!input) {
-    alert("Najpierw wpisz lub wklej nazwy aplikacji z Qualysa.");
+    currentQualysResults = [];
+    renderQualysResults();
+    return;
+  }
+
+  unifiedSearchTimer = setTimeout(() => {
+    recognizeQualys(false);
+  }, 220);
+}
+
+
+async function recognizeQualys(showEmptyAlert = true) {
+
+  const input = document.getElementById("qualysInput").value.trim();
+
+  if (!input) {
+    currentQualysResults = [];
+    renderQualysResults();
+
+    if (showEmptyAlert) {
+      alert("Najpierw wpisz nazwę aplikacji lub wklej listę z Qualysa.");
+    }
+
     return;
   }
 
@@ -1679,7 +1703,7 @@ function renderQualysResults() {
             <div class="candidate-main">
               <div class="candidate-desc">
                 Nie znaleziono sensownego dopasowania w aktualnej bazie Homebrew Cask.
-                Spróbuj krótszej nazwy w ręcznej wyszukiwarce.
+                Spróbuj skrócić nazwę albo wpisać nazwę producenta/programu.
               </div>
             </div>
           </div>
@@ -1764,97 +1788,6 @@ function selectCandidate(queryIndex, candidateIndex) {
 
 
 /* ============================================================
-   MANUAL SEARCH
-   ============================================================ */
-
-let manualSearchTimer = null;
-
-function handleManualSearch() {
-
-  clearTimeout(manualSearchTimer);
-
-  manualSearchTimer = setTimeout(() => {
-
-    const query = document.getElementById("manualSearch").value.trim();
-    const container = document.getElementById("manualResults");
-
-    if (!query) {
-      container.innerHTML = "";
-      return;
-    }
-
-    if (!caskDb.length) {
-      container.innerHTML = `
-        <div class="notice yellow">
-          <div class="notice-icon">⚠️</div>
-          <div>
-            <strong>Baza Homebrew nie jest jeszcze gotowa</strong>
-            <p>Poczekaj chwilę albo kliknij „Odśwież bazę”.</p>
-          </div>
-        </div>
-      `;
-      return;
-    }
-
-    const results = searchCasks(query, 8);
-
-    if (!results.length) {
-      container.innerHTML = `
-        <div class="notice yellow">
-          <div class="notice-icon">🔎</div>
-          <div>
-            <strong>Brak wyniku</strong>
-            <p>Spróbuj skrócić nazwę aplikacji.</p>
-          </div>
-        </div>
-      `;
-      return;
-    }
-
-    container.innerHTML = results.map((item, index) => {
-      const cask = item.cask;
-      const already = selected.has(cask.token);
-
-      return `
-        <div class="search-result">
-          <div>
-            <div class="candidate-name">${escapeHtml(cask.name)}</div>
-
-            <div class="candidate-meta">
-              <span>${escapeHtml(cask.sourceLabel || "Homebrew Cask")}</span>
-              <span>${escapeHtml(cask.token)}</span>
-              <span>wersja ${escapeHtml(cask.version)}</span>
-              <span>${Math.round(item.score)}%</span>
-            </div>
-          </div>
-
-          <button
-            class="btn ${already ? "btn-secondary" : "btn-primary"}"
-            onclick="addManualResult('${jsString(cask.token)}')"
-            ${already ? "disabled" : ""}
-          >
-            ${already ? "✓ Dodano" : "+ Dodaj"}
-          </button>
-        </div>
-      `;
-    }).join("");
-
-  }, 180);
-}
-
-
-function addManualResult(token) {
-
-  const cask = caskDb.find(item => item.token === token);
-
-  if (!cask) return;
-
-  addSelected(cask);
-  handleManualSearch();
-}
-
-
-/* ============================================================
    SELECTED
    ============================================================ */
 
@@ -1869,7 +1802,6 @@ function removeSelected(token) {
   selected.delete(token);
   renderSelected();
   renderQualysResults();
-  handleManualSearch();
   updateGenerateSummary();
 }
 
@@ -2545,6 +2477,8 @@ function shellField(value) {
 
 
 function clearQualys() {
+
+  clearTimeout(unifiedSearchTimer);
 
   document.getElementById("qualysInput").value = "";
   currentQualysResults = [];
