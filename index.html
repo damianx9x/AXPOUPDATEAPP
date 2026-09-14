@@ -786,8 +786,9 @@
     </h2>
 
     <p class="card-subtitle">
-      Homebrew jest wymagany do działania wygenerowanego skryptu.
-      Jeżeli jest już zainstalowany, przejdź do kroku 2.
+      Homebrew jest wymagany dla większości aplikacji obsługiwanych przez Cask.
+      Profile specjalne, takie jak FortiClient, mogą działać bez Homebrew.
+      Jeżeli brew jest już zainstalowany, przejdź do kroku 2.
     </p>
 
     <div class="command">
@@ -857,6 +858,19 @@
       typu <strong>Forticlient</strong>, <strong>Chrome</strong>,
       <strong>Teams</strong> albo <strong>OneDrive</strong>.
     </p>
+
+    <div class="notice blue">
+      <div class="notice-icon">🛡️</div>
+      <div>
+        <strong>FortiClient jest obsługiwany jako profil specjalny</strong>
+        <p>
+          Nawet jeśli nie występuje aktualnie w głównej bazie Homebrew Cask,
+          wpisanie „Forticlient” ma zwrócić wynik „FortiClient”.
+          Generator uruchomi oficjalny wbudowany aktualizator Fortinet zamiast próbować
+          podmieniać klienta przez niepewny Cask.
+        </p>
+      </div>
+    </div>
 
     <div class="status-row">
       <div id="dbStatus" class="status-pill loading">
@@ -1169,6 +1183,32 @@ const CACHE_MAX_AGE = 6 * 60 * 60 * 1000;
 const HOMEBREW_INSTALL =
   '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"';
 
+/*
+  Aplikacje specjalne:
+  - nie są zależne od aktualnej obecności w Homebrew Cask API,
+  - mogą mieć własny mechanizm aktualizacji,
+  - lista jest scalana z bazą Homebrew w wyszukiwarce.
+*/
+const SPECIAL_APPS = [
+  {
+    token: "forticlient-special",
+    name: "FortiClient",
+    names: [
+      "FortiClient",
+      "Forti Client",
+      "Fortinet FortiClient",
+      "FortiClient VPN"
+    ],
+    desc:
+      "Fortinet FortiClient. Profil specjalny: generator nie używa Homebrew, tylko uruchamia wbudowany oficjalny updater FortiClient.",
+    version: "vendor",
+    homepage: "https://www.fortinet.com/support/product-downloads",
+    appBundles: ["FortiClient.app"],
+    method: "forticlient",
+    sourceLabel: "Profil specjalny"
+  }
+];
+
 let caskDb = [];
 let selected = new Map();
 let currentQualysResults = [];
@@ -1194,7 +1234,7 @@ async function loadCaskDatabase(force = false) {
 
         if (Array.isArray(cached) && cached.length > 1000) {
           caskDb = prepareDatabase(cached);
-          setDbStatus("ok", `Baza Homebrew gotowa • ${caskDb.length.toLocaleString("pl-PL")} Casków`);
+          setDbStatus("ok", `Baza aplikacji gotowa • ${caskDb.length.toLocaleString("pl-PL")} pozycji`);
           return;
         }
       }
@@ -1227,7 +1267,7 @@ async function loadCaskDatabase(force = false) {
       console.warn("Cache localStorage niedostępny:", error);
     }
 
-    setDbStatus("ok", `Baza Homebrew gotowa • ${caskDb.length.toLocaleString("pl-PL")} Casków`);
+    setDbStatus("ok", `Baza aplikacji gotowa • ${caskDb.length.toLocaleString("pl-PL")} pozycji`);
 
   } catch (error) {
     console.error(error);
@@ -1242,22 +1282,29 @@ async function loadCaskDatabase(force = false) {
           caskDb = prepareDatabase(cached);
           setDbStatus(
             "error",
-            `API niedostępne • używam zapisanej bazy (${caskDb.length.toLocaleString("pl-PL")})`
+            `API niedostępne • używam zapisanej bazy + profili specjalnych (${caskDb.length.toLocaleString("pl-PL")})`
           );
           return;
         }
       }
     } catch (_) {}
 
-    setDbStatus("error", "Nie udało się pobrać bazy Homebrew");
+    // Nawet bez API zachowujemy profile specjalne, np. FortiClient.
+    caskDb = prepareDatabase([]);
+
+    setDbStatus(
+      "error",
+      "Homebrew API niedostępne • profile specjalne nadal działają"
+    );
 
     document.getElementById("qualysResults").innerHTML = `
-      <div class="notice red">
-        <div class="notice-icon">❌</div>
+      <div class="notice yellow">
+        <div class="notice-icon">⚠️</div>
         <div>
           <strong>Brak dostępu do Homebrew Cask API</strong>
           <p>
-            Sprawdź połączenie z Internetem i kliknij „Odśwież bazę”.
+            Profile specjalne, np. FortiClient, nadal są dostępne.
+            Dla pozostałych aplikacji sprawdź Internet i kliknij „Odśwież bazę”.
           </p>
         </div>
       </div>
@@ -1268,7 +1315,7 @@ async function loadCaskDatabase(force = false) {
 
 function prepareDatabase(data) {
 
-  return data.map(item => {
+  const brewApps = data.map(item => {
 
     const names = Array.isArray(item.name)
       ? item.name
@@ -1296,10 +1343,41 @@ function prepareDatabase(data) {
       appBundles,
       searchText,
       normalizedToken: normalizeText(item.token || ""),
-      normalizedNames: names.map(normalizeText)
+      normalizedNames: names.map(normalizeText),
+      method: "brew",
+      sourceLabel: "Homebrew Cask"
     };
 
   }).filter(item => item.token);
+
+  const specialApps = SPECIAL_APPS.map(item => {
+
+    const names = Array.isArray(item.names)
+      ? item.names
+      : [item.name];
+
+    const searchText = normalizeText([
+      item.token,
+      item.name,
+      ...names,
+      item.desc || ""
+    ].join(" "));
+
+    return {
+      ...item,
+      raw: null,
+      names,
+      searchText,
+      normalizedToken: normalizeText(item.token || ""),
+      normalizedNames: names.map(normalizeText)
+    };
+
+  });
+
+  return [
+    ...specialApps,
+    ...brewApps
+  ];
 
 }
 
@@ -1629,7 +1707,8 @@ function renderQualysResults() {
             <div class="candidate-name">${escapeHtml(cask.name)}</div>
 
             <div class="candidate-meta">
-              <span><strong>Cask:</strong> ${escapeHtml(cask.token)}</span>
+              <span><strong>Źródło:</strong> ${escapeHtml(cask.sourceLabel || "Homebrew Cask")}</span>
+              <span><strong>ID:</strong> ${escapeHtml(cask.token)}</span>
               <span><strong>Wersja:</strong> ${escapeHtml(cask.version)}</span>
               <span><strong>Dopasowanie:</strong> ${Math.round(item.score)}%</span>
             </div>
@@ -1742,6 +1821,7 @@ function handleManualSearch() {
             <div class="candidate-name">${escapeHtml(cask.name)}</div>
 
             <div class="candidate-meta">
+              <span>${escapeHtml(cask.sourceLabel || "Homebrew Cask")}</span>
               <span>${escapeHtml(cask.token)}</span>
               <span>wersja ${escapeHtml(cask.version)}</span>
               <span>${Math.round(item.score)}%</span>
@@ -1821,7 +1901,8 @@ function renderSelected() {
           <div class="selected-name">${escapeHtml(cask.name)}</div>
 
           <div class="selected-meta">
-            ${escapeHtml(cask.token)}
+            ${escapeHtml(cask.sourceLabel || "Homebrew Cask")}
+            • ${escapeHtml(cask.token)}
             • wersja ${escapeHtml(cask.version)}
             ${appInfo}
           </div>
@@ -1896,6 +1977,8 @@ function buildBashScript(items) {
   const logging = document.getElementById("optLog").checked;
   const cleanup = document.getElementById("optCleanup").checked;
 
+  const needsBrew = items.some(item => (item.method || "brew") === "brew");
+
   const appLines = items.map(item => {
 
     const bundle =
@@ -1903,7 +1986,7 @@ function buildBashScript(items) {
         ? item.appBundles[0]
         : "";
 
-    return `"${shellField(item.token)}|${shellField(item.name)}|${shellField(bundle)}|${shellField(item.version)}"`;
+    return `"${shellField(item.method || "brew")}|${shellField(item.token)}|${shellField(item.name)}|${shellField(bundle)}|${shellField(item.version)}"`;
 
   }).join("\n  ");
 
@@ -1929,6 +2012,7 @@ FAILED=0
 MISSING=0
 
 BREW=""
+NEEDS_BREW=${needsBrew ? "1" : "0"}
 USE_LOG=${logging ? "1" : "0"}
 ADOPT_EXISTING=${adopt ? "1" : "0"}
 INSTALL_UNKNOWN=${installUnknown ? "1" : "0"}
@@ -2024,45 +2108,56 @@ log "macOS:        \${MACOS_VERSION:-Nieznany}"
 log "Architektura: \${ARCH}"
 log ""
 
-log "\${CYAN}[PRECHECK]\${RESET} Sprawdzanie Homebrew..."
+if [ "$NEEDS_BREW" = "1" ]; then
 
-if command -v brew >/dev/null 2>&1; then
-  BREW="$(command -v brew)"
-elif [ -x "/opt/homebrew/bin/brew" ]; then
-  BREW="/opt/homebrew/bin/brew"
-elif [ -x "/usr/local/bin/brew" ]; then
-  BREW="/usr/local/bin/brew"
-fi
+  log "\${CYAN}[PRECHECK]\${RESET} Sprawdzanie Homebrew..."
 
-if [ -z "$BREW" ]; then
+  if command -v brew >/dev/null 2>&1; then
+    BREW="$(command -v brew)"
+  elif [ -x "/opt/homebrew/bin/brew" ]; then
+    BREW="/opt/homebrew/bin/brew"
+  elif [ -x "/usr/local/bin/brew" ]; then
+    BREW="/usr/local/bin/brew"
+  fi
+
+  if [ -z "$BREW" ]; then
+    log ""
+    log "\${RED}❌ Homebrew nie jest zainstalowany.\${RESET}"
+    log ""
+    log "Zainstaluj Homebrew oficjalną komendą:"
+    log ""
+    log '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+    log ""
+    log "\${YELLOW}Po instalacji wykonaj polecenia „Next steps” pokazane przez instalator i uruchom ten skrypt ponownie.\${RESET}"
+    log ""
+    exit 1
+  fi
+
+  BREW_VERSION="$("$BREW" --version 2>/dev/null | head -n 1)"
+
+  log "\${GREEN}✅ Homebrew znaleziony: \${BREW}\${RESET}"
+  log "   \${BREW_VERSION}"
   log ""
-  log "\${RED}❌ Homebrew nie jest zainstalowany.\${RESET}"
-  log ""
-  log "Zainstaluj Homebrew oficjalną komendą:"
-  log ""
-  log '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
-  log ""
-  log "\${YELLOW}Po instalacji wykonaj polecenia „Next steps” pokazane przez instalator i uruchom ten skrypt ponownie.\${RESET}"
-  log ""
-  exit 1
-fi
 
-BREW_VERSION="$("$BREW" --version 2>/dev/null | head -n 1)"
-
-log "\${GREEN}✅ Homebrew znaleziony: \${BREW}\${RESET}"
-log "   \${BREW_VERSION}"
-log ""
-
-${brewUpdate ? `log "\${CYAN}[PRECHECK]\${RESET} Odświeżanie Homebrew..."
-"$BREW" update-if-needed
-
-if [ $? -eq 0 ]; then
-  log "\${GREEN}✅ Homebrew metadata gotowe.\${RESET}"
 else
-  log "\${YELLOW}⚠️ Aktualizacja metadanych Homebrew zwróciła błąd. Kontynuuję.\${RESET}"
+
+  log "\${GREEN}[PRECHECK] Homebrew nie jest potrzebny dla wybranych profili specjalnych.\${RESET}"
+  log ""
+
 fi
 
-log ""
+${brewUpdate ? `if [ "$NEEDS_BREW" = "1" ]; then
+  log "\${CYAN}[PRECHECK]\${RESET} Odświeżanie Homebrew..."
+  "$BREW" update-if-needed
+
+  if [ $? -eq 0 ]; then
+    log "\${GREEN}✅ Homebrew metadata gotowe.\${RESET}"
+  else
+    log "\${YELLOW}⚠️ Aktualizacja metadanych Homebrew zwróciła błąd. Kontynuuję.\${RESET}"
+  fi
+
+  log ""
+fi
 ` : ""}
 
 TOTAL="\${#APPS[@]}"
@@ -2072,7 +2167,7 @@ for ITEM in "\${APPS[@]}"; do
 
   INDEX=$((INDEX + 1))
 
-  IFS='|' read -r CASK NAME APP_BUNDLE TARGET_VERSION <<< "$ITEM"
+  IFS='|' read -r METHOD CASK NAME APP_BUNDLE TARGET_VERSION <<< "$ITEM"
 
   log "\${BLUE}\${BOLD}------------------------------------------------------------\${RESET}"
   log "\${BLUE}\${BOLD}[\${INDEX}/\${TOTAL}] \${NAME}\${RESET}"
@@ -2095,6 +2190,58 @@ for ITEM in "\${APPS[@]}"; do
   else
     log "Aplikacja .app:  Cask nie udostępnia prostego artefaktu .app"
   fi
+
+  # ----------------------------------------------------------
+  # Profil specjalny: FortiClient
+  # ----------------------------------------------------------
+
+  if [ "$METHOD" = "forticlient" ]; then
+
+    FORTI_APP="/Applications/FortiClient.app"
+    FORTI_UPDATER="/Applications/FortiClient.app/Contents/Resources/runtime.helper/FortiClientUpdate.app"
+
+    if [ ! -d "$FORTI_APP" ]; then
+      log "\${YELLOW}⚠️ FortiClient nie został znaleziony w /Applications.\${RESET}"
+      log "Otwieram oficjalną stronę pobierania Fortinet..."
+      open "https://www.fortinet.com/support/product-downloads" >/dev/null 2>&1
+      MISSING=$((MISSING + 1))
+      log ""
+      continue
+    fi
+
+    FORTI_VERSION="$(get_app_version "$FORTI_APP")"
+
+    if [ -n "$FORTI_VERSION" ]; then
+      log "Wersja lokalna:  \${FORTI_VERSION}"
+    fi
+
+    if [ -d "$FORTI_UPDATER" ]; then
+      log "Metoda: oficjalny wbudowany updater FortiClient"
+      log "Uruchamianie aktualizatora..."
+
+      open "$FORTI_UPDATER"
+      RESULT=$?
+
+      if [ "$RESULT" -eq 0 ]; then
+        log "\${YELLOW}⚠️ Uruchomiono FortiClient Update.\${RESET}"
+        log "Dokończ aktualizację w oknie FortiClient. Ten krok nie jest liczony jako automatycznie zakończony."
+        SKIPPED=$((SKIPPED + 1))
+      else
+        log "\${RED}❌ Nie udało się uruchomić wbudowanego updatera FortiClient.\${RESET}"
+        FAILED=$((FAILED + 1))
+      fi
+
+    else
+      log "\${YELLOW}⚠️ Nie znaleziono wbudowanego FortiClientUpdate.app.\${RESET}"
+      log "Otwieram oficjalną stronę pobierania Fortinet..."
+      open "https://www.fortinet.com/support/product-downloads" >/dev/null 2>&1
+      SKIPPED=$((SKIPPED + 1))
+    fi
+
+    log ""
+    continue
+  fi
+
 
   "$BREW" info --cask "$CASK" >/dev/null 2>&1
 
@@ -2230,9 +2377,11 @@ for ITEM in "\${APPS[@]}"; do
 
 done
 
-${cleanup ? `log "\${CYAN}[CLEANUP]\${RESET} brew cleanup..."
-"$BREW" cleanup
-log ""
+${cleanup ? `if [ "$NEEDS_BREW" = "1" ] && [ -n "$BREW" ]; then
+  log "\${CYAN}[CLEANUP]\${RESET} brew cleanup..."
+  "$BREW" cleanup
+  log ""
+fi
 ` : ""}
 
 log ""
