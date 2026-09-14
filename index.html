@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
 
   <title>Qualys macOS Patch Generator</title>
 
@@ -13,50 +14,36 @@
       --surface-soft: #f8fafc;
       --border: #dfe3e8;
       --border-strong: #c7ccd1;
-
       --text: #172b4d;
       --muted: #626f86;
-
       --blue: #0c66e4;
       --blue-hover: #0055cc;
       --blue-soft: #e9f2ff;
-
       --green: #1f845a;
       --green-soft: #dcfff1;
-
-      --yellow: #a54800;
+      --yellow: #8f5f00;
       --yellow-soft: #fff7d6;
-
       --red: #c9372c;
       --red-soft: #ffeceb;
-
       --purple: #6554c0;
       --purple-soft: #f3f0ff;
-
       --code-bg: #0d1117;
       --code-toolbar: #161b22;
       --code-text: #e6edf3;
-
       --radius: 14px;
-
       --shadow:
         0 1px 2px rgba(9, 30, 66, 0.08),
         0 4px 12px rgba(9, 30, 66, 0.06);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
-
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -65,19 +52,21 @@
         Helvetica,
         Arial,
         sans-serif;
-
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
-    button,
-    input,
-    textarea,
-    select {
-      font: inherit;
-    }
+    button, input, textarea, select { font: inherit; }
 
-    button {
-      cursor: pointer;
+    button { cursor: pointer; }
+
+    code {
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
     }
 
     .page {
@@ -85,18 +74,12 @@
       margin: 28px auto 60px;
     }
 
-    /* HERO */
-
     .hero {
       position: relative;
       overflow: hidden;
-
       padding: 34px;
-
       color: white;
-
       border-radius: 20px;
-
       background:
         linear-gradient(
           135deg,
@@ -104,198 +87,120 @@
           #1558bc 55%,
           #403294 100%
         );
-
       box-shadow: var(--shadow);
-
       margin-bottom: 24px;
     }
 
     .hero::after {
       content: "";
-
       position: absolute;
-
       width: 360px;
       height: 360px;
-
       right: -140px;
       top: -170px;
-
       border-radius: 50%;
-
       background: rgba(255,255,255,.08);
     }
 
     .hero-badge {
       position: relative;
       z-index: 2;
-
       display: inline-flex;
       align-items: center;
       gap: 8px;
-
       padding: 6px 11px;
-
       border-radius: 999px;
-
       background: rgba(255,255,255,.14);
-
       font-size: 13px;
       font-weight: 700;
-
       margin-bottom: 12px;
     }
 
     .hero h1 {
       position: relative;
       z-index: 2;
-
       margin: 0 0 10px;
-
       font-size: clamp(27px, 4vw, 42px);
       line-height: 1.12;
-
       letter-spacing: -.03em;
     }
 
     .hero p {
       position: relative;
       z-index: 2;
-
-      max-width: 850px;
-
+      max-width: 900px;
       margin: 0;
-
       color: rgba(255,255,255,.92);
     }
 
     .quick-flow {
       position: relative;
       z-index: 2;
-
       display: grid;
-
-      grid-template-columns:
-        repeat(5, 1fr);
-
+      grid-template-columns: repeat(5, 1fr);
       gap: 10px;
-
       margin-top: 24px;
     }
 
     .quick-step {
       padding: 12px;
-
       border-radius: 10px;
-
       background: rgba(255,255,255,.12);
-
-      border:
-        1px solid rgba(255,255,255,.14);
-
+      border: 1px solid rgba(255,255,255,.14);
       font-size: 13px;
       font-weight: 650;
     }
 
     .quick-step span {
       display: block;
-
       opacity: .72;
-
       font-size: 11px;
-
       margin-bottom: 3px;
     }
 
-    /* CARDS */
-
     .card {
       margin-bottom: 20px;
-
       padding: 24px;
-
       background: var(--surface);
-
-      border:
-        1px solid var(--border);
-
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-
       box-shadow: var(--shadow);
     }
 
     .card h2 {
       margin: 0 0 8px;
-
       font-size: 22px;
     }
 
     .card h3 {
       margin: 24px 0 8px;
-
       font-size: 17px;
     }
 
     .card-subtitle {
       margin: 0 0 20px;
-
       color: var(--muted);
     }
 
     .section-number {
       display: inline-flex;
-
       align-items: center;
       justify-content: center;
-
       width: 30px;
       height: 30px;
-
       margin-right: 8px;
-
       border-radius: 9px;
-
       background: var(--blue-soft);
       color: var(--blue);
-
       font-size: 14px;
       font-weight: 800;
-    }
-
-    /* INFO */
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .info-box {
-      border: 1px solid var(--border);
-      background: var(--surface-soft);
-      border-radius: 12px;
-      padding: 18px;
-    }
-
-    .info-box h3 {
-      margin: 0 0 6px;
-      font-size: 16px;
-    }
-
-    .info-box p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
     }
 
     .notice {
       display: flex;
       gap: 12px;
-
       padding: 15px;
-
       border-radius: 12px;
-
       margin: 16px 0;
     }
 
@@ -334,16 +239,11 @@
       font-size: 14px;
     }
 
-    /* COMMAND BLOCK */
-
     .command {
       border-radius: 11px;
       overflow: hidden;
-
       background: var(--code-bg);
-
       margin-top: 12px;
-
       border: 1px solid #30363d;
     }
 
@@ -351,13 +251,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       gap: 10px;
-
       padding: 9px 12px;
-
       background: var(--code-toolbar);
-
       border-bottom: 1px solid #30363d;
     }
 
@@ -370,13 +266,10 @@
     .command pre {
       margin: 0;
       padding: 15px;
-
       color: var(--code-text);
-
       overflow-x: auto;
       white-space: pre-wrap;
       word-break: break-word;
-
       font-family:
         ui-monospace,
         SFMono-Regular,
@@ -384,7 +277,6 @@
         Monaco,
         Consolas,
         monospace;
-
       font-size: 13px;
     }
 
@@ -392,37 +284,87 @@
       border: 1px solid #30363d;
       background: #21262d;
       color: #c9d1d9;
-
       border-radius: 7px;
-
       padding: 5px 9px;
-
       font-size: 12px;
       font-weight: 700;
     }
 
-    .copy-small:hover {
-      background: #30363d;
+    .copy-small:hover { background: #30363d; }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
     }
 
-    /* QUALYS INPUT */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .status-pill.loading {
+      background: var(--blue-soft);
+      color: var(--blue);
+      border-color: #c7ddff;
+    }
+
+    .status-pill.ok {
+      background: var(--green-soft);
+      color: var(--green);
+      border-color: #b9efd8;
+    }
+
+    .status-pill.error {
+      background: var(--red-soft);
+      color: var(--red);
+      border-color: #ffd2cf;
+    }
+
+    .spinner {
+      width: 12px;
+      height: 12px;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
     textarea {
       width: 100%;
-      min-height: 150px;
-
+      min-height: 145px;
       resize: vertical;
-
       padding: 14px;
-
       border-radius: 10px;
-
       border: 1px solid var(--border-strong);
-
       background: white;
       color: var(--text);
-
       outline: none;
+    }
+
+    input[type="text"],
+    input[type="search"] {
+      width: 100%;
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 11px 13px;
+      outline: none;
+      background: white;
+      color: var(--text);
     }
 
     textarea:focus,
@@ -438,17 +380,11 @@
       flex-wrap: wrap;
     }
 
-    /* BUTTONS */
-
     .btn {
       border: none;
-
       padding: 10px 15px;
-
       border-radius: 9px;
-
       font-weight: 750;
-
       transition: .15s ease;
     }
 
@@ -457,25 +393,19 @@
       color: white;
     }
 
-    .btn-primary:hover {
-      background: var(--blue-hover);
-    }
+    .btn-primary:hover { background: var(--blue-hover); }
 
     .btn-secondary {
       background: var(--surface-soft);
       color: var(--text);
-
       border: 1px solid var(--border);
     }
 
-    .btn-secondary:hover {
-      background: #edf1f5;
-    }
+    .btn-secondary:hover { background: #edf1f5; }
 
     .btn-danger {
       background: var(--red-soft);
       color: var(--red);
-
       border: 1px solid #ffd2cf;
     }
 
@@ -484,167 +414,158 @@
       font-size: 16px;
     }
 
-    /* APPS */
+    .results {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
 
-    .apps-toolbar {
+    .query-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .query-header {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--surface-soft);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .query-title {
+      font-weight: 800;
+      word-break: break-word;
+    }
+
+    .query-state {
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 9px;
+      border-radius: 999px;
+    }
+
+    .query-state.exact {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .query-state.similar {
+      background: var(--yellow-soft);
+      color: var(--yellow);
+    }
+
+    .query-state.none {
+      background: var(--red-soft);
+      color: var(--red);
+    }
+
+    .candidate-list {
+      display: grid;
+      gap: 0;
+    }
+
+    .candidate {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .candidate:last-child { border-bottom: 0; }
+
+    .candidate-main { min-width: 0; }
+
+    .candidate-name {
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .candidate-meta {
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
       gap: 10px;
       flex-wrap: wrap;
-
-      margin-bottom: 16px;
     }
 
-    .search {
-      flex: 1;
-      min-width: 220px;
-
-      border: 1px solid var(--border-strong);
-
-      border-radius: 10px;
-
-      padding: 10px 13px;
-
-      outline: none;
-    }
-
-    .counter {
-      white-space: nowrap;
-
-      padding: 8px 12px;
-
-      border-radius: 999px;
-
-      background: var(--blue-soft);
-      color: var(--blue);
-
-      font-size: 13px;
-      font-weight: 750;
-    }
-
-    .apps-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-      gap: 11px;
-    }
-
-    .app-card {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-
-      padding: 13px;
-
-      border: 1px solid var(--border);
-
-      border-radius: 11px;
-
-      background: var(--surface);
-
-      cursor: pointer;
-
-      transition: .15s ease;
-    }
-
-    .app-card:hover {
-      border-color: #b6c2cf;
-      transform: translateY(-1px);
-    }
-
-    .app-card.selected {
-      border-color: var(--blue);
-      background: #f7faff;
-      box-shadow: 0 0 0 2px rgba(12,102,228,.08);
-    }
-
-    .app-card input {
-      width: 18px;
-      height: 18px;
-
-      accent-color: var(--blue);
-
-      flex: 0 0 auto;
-    }
-
-    .app-info {
-      min-width: 0;
-    }
-
-    .app-name {
-      font-weight: 750;
-      font-size: 14px;
-    }
-
-    .app-cask {
+    .candidate-desc {
+      margin-top: 6px;
       color: var(--muted);
-      font-size: 11px;
-
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 13px;
     }
 
-    /* CUSTOM */
-
-    .custom-row {
+    .selected-list {
       display: grid;
-
-      grid-template-columns:
-        1fr 1fr auto;
-
       gap: 10px;
+      margin-top: 14px;
+    }
 
+    .selected-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--surface-soft);
+    }
+
+    .selected-name {
+      font-weight: 800;
+    }
+
+    .selected-meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .search-results {
+      display: grid;
+      gap: 8px;
       margin-top: 12px;
     }
 
-    .custom-row input {
-      min-width: 0;
-
-      border: 1px solid var(--border-strong);
-
-      border-radius: 9px;
-
-      padding: 10px 12px;
-
-      outline: none;
+    .search-result {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
     }
-
-    /* OPTIONS */
 
     .options-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
     }
 
     .option {
       display: flex;
-
       align-items: flex-start;
-
       gap: 11px;
-
       padding: 14px;
-
       border: 1px solid var(--border);
-
       border-radius: 11px;
-
       background: var(--surface-soft);
     }
 
     .option input {
       width: 18px;
       height: 18px;
-
       margin-top: 2px;
-
       accent-color: var(--blue);
     }
 
@@ -655,23 +576,16 @@
 
     .option span {
       display: block;
-
       color: var(--muted);
-
       font-size: 12px;
-
       margin-top: 2px;
     }
-
-    /* OUTPUT */
 
     .generate-area {
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       gap: 15px;
-
       flex-wrap: wrap;
     }
 
@@ -680,21 +594,36 @@
       font-size: 14px;
     }
 
-    .output-card {
-      display: none;
-    }
+    .output-card { display: none; }
+    .output-card.visible { display: block; }
 
-    .output-card.visible {
-      display: block;
+    .terminal-command {
+      width: 100%;
+      min-height: 115px;
+      margin: 0;
+      padding: 18px;
+      overflow: auto;
+      background: var(--code-bg);
+      color: var(--code-text);
+      border: 0;
+      border-radius: 0;
+      resize: vertical;
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+      font-size: 12.5px;
+      line-height: 1.5;
+      outline: none;
     }
 
     .script-window {
       overflow: hidden;
-
       border-radius: 12px;
-
       background: var(--code-bg);
-
       border: 1px solid #30363d;
     }
 
@@ -702,13 +631,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       gap: 10px;
-
       padding: 11px 14px;
-
       background: var(--code-toolbar);
-
       border-bottom: 1px solid #30363d;
     }
 
@@ -716,9 +641,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-
       color: #8b949e;
-
       font-size: 12px;
       font-weight: 700;
     }
@@ -733,27 +656,31 @@
     .dot.yellow { background: #ffbd2e; }
     .dot.green { background: #27c93f; }
 
-    #output {
-      width: 100%;
+    details {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--surface-soft);
+      overflow: hidden;
+    }
 
-      min-height: 500px;
-      max-height: 720px;
+    summary {
+      cursor: pointer;
+      padding: 13px 15px;
+      font-weight: 800;
+      user-select: none;
+    }
 
-      margin: 0;
+    .source-wrap {
+      padding: 0 14px 14px;
+    }
 
-      padding: 18px;
-
-      overflow: auto;
-
+    #sourceOutput {
+      min-height: 400px;
+      max-height: 700px;
       background: var(--code-bg);
-
       color: var(--code-text);
-
-      border: 0;
-      border-radius: 0;
-
-      resize: vertical;
-
+      border-color: #30363d;
       font-family:
         ui-monospace,
         SFMono-Regular,
@@ -761,53 +688,28 @@
         Monaco,
         Consolas,
         monospace;
-
-      font-size: 12.5px;
-      line-height: 1.5;
-
-      outline: none;
+      font-size: 12px;
     }
 
     .output-actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-
       margin-top: 14px;
     }
 
-    /* FOOTER */
-
     .footer {
       text-align: center;
-
       color: var(--muted);
-
       font-size: 12px;
-
       padding: 18px;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
     @media (max-width: 900px) {
-      .quick-flow {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .apps-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .options-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
+      .quick-flow { grid-template-columns: 1fr 1fr; }
+      .options-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 620px) {
@@ -816,31 +718,18 @@
         margin-top: 9px;
       }
 
-      .hero,
-      .card {
-        padding: 19px;
-      }
+      .hero, .card { padding: 19px; }
+      .hero { border-radius: 14px; }
+      .quick-flow { grid-template-columns: 1fr; }
 
-      .hero {
-        border-radius: 14px;
-      }
-
-      .quick-flow,
-      .apps-grid {
+      .candidate,
+      .selected-item,
+      .search-result {
         grid-template-columns: 1fr;
       }
 
-      .custom-row {
-        grid-template-columns: 1fr;
-      }
-
-      .generate-area {
-        align-items: stretch;
-      }
-
-      .btn-large {
-        width: 100%;
-      }
+      .generate-area { align-items: stretch; }
+      .btn-large { width: 100%; }
     }
   </style>
 </head>
@@ -849,25 +738,18 @@
 
 <div class="page">
 
-  <!-- HERO -->
-
   <section class="hero">
+    <div class="hero-badge">macOS • Qualys • Homebrew</div>
 
-    <div class="hero-badge">
-      macOS • Qualys • Patch Assistant
-    </div>
-
-    <h1>
-      Qualys macOS Patch Generator
-    </h1>
+    <h1>Qualys macOS Patch Generator</h1>
 
     <p>
-      Generator skryptu do aktualizacji aplikacji wskazanych przez Qualys.
-      Wybierz programy, wygeneruj skrypt i uruchom go w Terminalu na Macu klienta.
+      Wklej nazwy aplikacji wskazanych przez Qualys. Generator wyszuka je
+      w aktualnej bazie Homebrew Cask, pozwoli wybrać właściwy pakiet
+      i zbuduje jedną komendę gotową do bezpośredniego wklejenia do Terminala.
     </p>
 
     <div class="quick-flow">
-
       <div class="quick-step">
         <span>KROK 1</span>
         Sprawdź Homebrew
@@ -875,30 +757,26 @@
 
       <div class="quick-step">
         <span>KROK 2</span>
-        Wklej wynik Qualys
+        Wklej Qualys
       </div>
 
       <div class="quick-step">
         <span>KROK 3</span>
-        Wybierz aplikacje
+        Wybierz wyniki
       </div>
 
       <div class="quick-step">
         <span>KROK 4</span>
-        Generuj skrypt
+        Generuj
       </div>
 
       <div class="quick-step">
         <span>KROK 5</span>
-        Uruchom w Terminalu
+        Wklej do Terminala
       </div>
-
     </div>
-
   </section>
 
-
-  <!-- HOME BREW -->
 
   <section class="card">
 
@@ -908,29 +786,13 @@
     </h2>
 
     <p class="card-subtitle">
-      Homebrew jest wymagany do automatycznej aktualizacji aplikacji.
-      Jeżeli jest już zainstalowany, ten krok wykonujesz tylko kontrolnie.
+      Homebrew jest wymagany do działania wygenerowanego skryptu.
+      Jeżeli jest już zainstalowany, przejdź do kroku 2.
     </p>
 
-    <div class="notice blue">
-      <div class="notice-icon">ℹ️</div>
-
-      <div>
-        <strong>Najpierw sprawdź Homebrew</strong>
-
-        <p>
-          Otwórz Terminal na komputerze klienta i wykonaj poniższą komendę.
-        </p>
-      </div>
-    </div>
-
     <div class="command">
-
       <div class="command-toolbar">
-
-        <div class="command-title">
-          Sprawdzenie Homebrew
-        </div>
+        <div class="command-title">Sprawdzenie Homebrew</div>
 
         <button
           class="copy-small"
@@ -938,145 +800,50 @@
         >
           Kopiuj
         </button>
-
       </div>
 
       <pre>brew --version</pre>
-
     </div>
 
-    <div class="info-grid" style="margin-top:16px;">
-
-      <div class="info-box">
-
-        <h3>✅ Homebrew jest zainstalowany</h3>
-
+    <div class="notice blue">
+      <div class="notice-icon">ℹ️</div>
+      <div>
+        <strong>Jeżeli zobaczysz „command not found: brew”</strong>
         <p>
-          Jeżeli Terminal pokaże wersję Homebrew, możesz przejść bezpośrednio
-          do wyboru aplikacji.
+          Zainstaluj Homebrew oficjalnym instalatorem poniżej.
         </p>
-
       </div>
-
-      <div class="info-box">
-
-        <h3>❌ command not found: brew</h3>
-
-        <p>
-          Jeżeli Terminal nie zna polecenia brew, zainstaluj Homebrew
-          poniższą oficjalną komendą.
-        </p>
-
-      </div>
-
     </div>
-
-    <h3>
-      Instalacja Homebrew
-    </h3>
 
     <div class="command">
-
       <div class="command-toolbar">
-
-        <div class="command-title">
-          Oficjalny instalator Homebrew
-        </div>
+        <div class="command-title">Instalacja Homebrew</div>
 
         <button
           class="copy-small"
-          onclick="copyText(homebrewInstallCommand, this)"
+          onclick="copyText(HOMEBREW_INSTALL, this)"
         >
           Kopiuj
         </button>
-
       </div>
 
       <pre>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</pre>
-
     </div>
 
     <div class="notice yellow">
       <div class="notice-icon">⚠️</div>
-
       <div>
-        <strong>Po instalacji przeczytaj komunikat Terminala</strong>
-
+        <strong>Po instalacji</strong>
         <p>
-          Homebrew może poprosić o dodanie go do PATH.
-          Instalator pokaże dokładną komendę do wykonania.
+          Wykonaj komendy „Next steps”, które pokaże instalator Homebrew.
+          Na Apple Silicon Homebrew znajduje się zwykle w
+          <code>/opt/homebrew</code>, a na Intel w <code>/usr/local</code>.
         </p>
       </div>
     </div>
 
-    <h3>
-      Jeżeli brew nadal nie jest widoczny
-    </h3>
-
-    <div class="info-grid">
-
-      <div class="info-box">
-
-        <h3>Apple Silicon — M1 / M2 / M3 / M4 / M5</h3>
-
-        <div class="command">
-
-          <div class="command-toolbar">
-
-            <div class="command-title">
-              /opt/homebrew
-            </div>
-
-            <button
-              class="copy-small"
-              onclick="copyText(appleSiliconPathCommand, this)"
-            >
-              Kopiuj
-            </button>
-
-          </div>
-
-          <pre>echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"</pre>
-
-        </div>
-
-      </div>
-
-      <div class="info-box">
-
-        <h3>Intel</h3>
-
-        <div class="command">
-
-          <div class="command-toolbar">
-
-            <div class="command-title">
-              /usr/local
-            </div>
-
-            <button
-              class="copy-small"
-              onclick="copyText(intelPathCommand, this)"
-            >
-              Kopiuj
-            </button>
-
-          </div>
-
-          <pre>echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/usr/local/bin/brew shellenv)"</pre>
-
-        </div>
-
-      </div>
-
-    </div>
-
   </section>
 
-
-  <!-- QUALYS -->
 
   <section class="card">
 
@@ -1086,30 +853,42 @@ eval "$(/usr/local/bin/brew shellenv)"</pre>
     </h2>
 
     <p class="card-subtitle">
-      Opcjonalnie wklej tutaj listę aplikacji lub podatności z Qualysa.
-      Generator spróbuje automatycznie zaznaczyć rozpoznane programy.
+      Jedna aplikacja na linię działa najlepiej. Możesz wpisać zwykłą nazwę
+      typu <strong>Forticlient</strong>, <strong>Chrome</strong>,
+      <strong>Teams</strong> albo <strong>OneDrive</strong>.
     </p>
+
+    <div class="status-row">
+      <div id="dbStatus" class="status-pill loading">
+        <span class="spinner"></span>
+        Ładowanie bazy Homebrew…
+      </div>
+
+      <button
+        class="btn btn-secondary"
+        onclick="loadCaskDatabase(true)"
+      >
+        ↻ Odśwież bazę
+      </button>
+    </div>
 
     <textarea
       id="qualysInput"
       placeholder="Przykład:
 
+Forticlient
 Google Chrome
-Microsoft Edge
 Microsoft Teams
-Microsoft OneDrive
-Mozilla Firefox
-Adobe Acrobat Reader
-Zoom Workplace"
+OneDrive
+Adobe Acrobat Reader"
     ></textarea>
 
     <div class="input-row">
-
       <button
         class="btn btn-primary"
-        onclick="detectFromQualys()"
+        onclick="recognizeQualys()"
       >
-        🔎 Rozpoznaj aplikacje
+        🔎 Wyszukaj aplikacje
       </button>
 
       <button
@@ -1118,121 +897,49 @@ Zoom Workplace"
       >
         Wyczyść
       </button>
-
     </div>
 
-    <div
-      id="qualysResult"
-      class="notice green hidden"
-    >
-
-      <div class="notice-icon">
-        ✅
-      </div>
-
-      <div>
-
-        <strong id="qualysResultTitle">
-          Rozpoznano aplikacje
-        </strong>
-
-        <p id="qualysResultText"></p>
-
-      </div>
-
-    </div>
+    <div id="qualysResults" class="results"></div>
 
   </section>
 
-
-  <!-- APPS -->
 
   <section class="card">
 
     <h2>
       <span class="section-number">3</span>
-      Wybierz aplikacje
+      Wybrane do aktualizacji
     </h2>
 
     <p class="card-subtitle">
-      Skrypt zaktualizuje tylko zaznaczone programy.
-      Nie wykonuje globalnego <code>brew upgrade</code>.
+      Tutaj trafiają pakiety, które zostaną użyte w skrypcie.
     </p>
 
-    <div class="apps-toolbar">
-
-      <input
-        id="search"
-        class="search"
-        type="search"
-        placeholder="Szukaj aplikacji..."
-        oninput="renderApps()"
-      >
-
-      <button
-        class="btn btn-secondary"
-        onclick="selectAllVisible()"
-      >
-        Zaznacz widoczne
-      </button>
-
-      <button
-        class="btn btn-secondary"
-        onclick="unselectAll()"
-      >
-        Odznacz wszystko
-      </button>
-
-      <div
-        id="counter"
-        class="counter"
-      >
-        0 wybranych
+    <div id="selectedEmpty" class="notice blue">
+      <div class="notice-icon">ℹ️</div>
+      <div>
+        <strong>Brak wybranych aplikacji</strong>
+        <p>
+          Wyszukaj je z wyniku Qualysa albo skorzystaj z ręcznej wyszukiwarki poniżej.
+        </p>
       </div>
-
     </div>
 
-    <div
-      id="appsGrid"
-      class="apps-grid"
-    ></div>
+    <div id="selectedList" class="selected-list"></div>
 
+    <h3>Ręczne wyszukiwanie w Homebrew</h3>
 
-    <h3>
-      Własny Homebrew Cask
-    </h3>
+    <input
+      id="manualSearch"
+      type="search"
+      placeholder="Np. forticlient, chrome, zoom, citrix..."
+      oninput="handleManualSearch()"
+    />
 
-    <p class="card-subtitle">
-      Jeżeli aplikacji nie ma na liście, możesz dodać własny pakiet.
-    </p>
-
-    <div class="custom-row">
-
-      <input
-        id="customName"
-        type="text"
-        placeholder="Nazwa, np. My Application"
-      >
-
-      <input
-        id="customCask"
-        type="text"
-        placeholder="Cask, np. my-application"
-      >
-
-      <button
-        class="btn btn-primary"
-        onclick="addCustomApp()"
-      >
-        + Dodaj
-      </button>
-
-    </div>
+    <div id="manualResults" class="search-results"></div>
 
   </section>
 
-
-  <!-- OPTIONS -->
 
   <section class="card">
 
@@ -1242,213 +949,131 @@ Zoom Workplace"
     </h2>
 
     <p class="card-subtitle">
-      Ustaw zachowanie skryptu przed wygenerowaniem.
+      Domyślne ustawienia są przygotowane pod aktualizację aplikacji wskazanych przez Qualys.
     </p>
 
     <div class="options-grid">
 
       <label class="option">
-
-        <input
-          id="optBrewUpdate"
-          type="checkbox"
-          checked
-        >
+        <input id="optBrewUpdate" type="checkbox" checked />
 
         <div>
-          <strong>Odśwież repozytorium Homebrew</strong>
-
-          <span>
-            Wykona brew update przed aktualizacjami.
-          </span>
+          <strong>Odśwież Homebrew</strong>
+          <span>Wykona <code>brew update-if-needed</code> przed aktualizacjami.</span>
         </div>
-
       </label>
 
-
       <label class="option">
-
-        <input
-          id="optGreedy"
-          type="checkbox"
-          checked
-        >
+        <input id="optGreedy" type="checkbox" checked />
 
         <div>
-          <strong>Aktualizuj także aplikacje auto-update</strong>
-
-          <span>
-            Używa --greedy dla wybranych Homebrew Cask.
-          </span>
+          <strong>Aktualizuj także auto-update / latest</strong>
+          <span>Dodaje <code>--greedy</code> do aktualizacji Casków.</span>
         </div>
-
       </label>
 
-
       <label class="option">
-
-        <input
-          id="optAdopt"
-          type="checkbox"
-          checked
-        >
+        <input id="optNoQuit" type="checkbox" />
 
         <div>
-          <strong>Obsłuż aplikacje niezainstalowane przez Brew</strong>
-
+          <strong>Nie zamykaj uruchomionych aplikacji</strong>
           <span>
-            Jeżeli program istnieje w /Applications, ale Brew go nie zarządza,
-            skrypt spróbuje zainstalować aktualny Cask z --force.
+            Dodaje <code>--no-quit</code>. Może spowodować niepowodzenie aktualizacji,
+            jeśli aplikacja musi być zamknięta.
           </span>
         </div>
-
       </label>
 
-
       <label class="option">
-
-        <input
-          id="optInstallMissing"
-          type="checkbox"
-        >
+        <input id="optAdopt" type="checkbox" checked />
 
         <div>
-          <strong>Instaluj brakujące aplikacje</strong>
-
+          <strong>Obsłuż aplikacje instalowane wcześniej ręcznie</strong>
           <span>
-            Domyślnie wyłączone. Jeżeli programu w ogóle nie ma na Macu,
-            pozwala go zainstalować.
+            Jeśli aplikacja istnieje, ale Homebrew jej nie zarządza,
+            skrypt spróbuje zainstalować aktualny Cask z <code>--force</code>.
           </span>
         </div>
-
       </label>
 
+      <label class="option">
+        <input id="optInstallUnknown" type="checkbox" checked />
+
+        <div>
+          <strong>Spróbuj także dla Casków bez wykrywalnego .app</strong>
+          <span>
+            Przydatne dla instalatorów PKG, VPN i narzędzi systemowych.
+            Zakładamy, że skoro Qualys je wskazał, są obecne.
+          </span>
+        </div>
+      </label>
 
       <label class="option">
+        <input id="optInstallMissing" type="checkbox" />
 
-        <input
-          id="optLog"
-          type="checkbox"
-          checked
-        >
+        <div>
+          <strong>Instaluj całkowicie brakujące aplikacje</strong>
+          <span>
+            Domyślnie wyłączone. Włącz tylko wtedy, gdy chcesz instalować program,
+            którego na Macu faktycznie nie ma.
+          </span>
+        </div>
+      </label>
+
+      <label class="option">
+        <input id="optLog" type="checkbox" checked />
 
         <div>
           <strong>Zapisz log</strong>
-
-          <span>
-            Tworzy plik z pełnym przebiegiem w /tmp.
-          </span>
+          <span>Pełny log trafi do <code>/tmp/qualys-patch-...</code>.</span>
         </div>
-
       </label>
 
-
       <label class="option">
-
-        <input
-          id="optVersions"
-          type="checkbox"
-          checked
-        >
-
-        <div>
-          <strong>Pokaż wersję aplikacji</strong>
-
-          <span>
-            Próbuje odczytać wersję programu przed i po aktualizacji.
-          </span>
-        </div>
-
-      </label>
-
-
-      <label class="option">
-
-        <input
-          id="optCloseApps"
-          type="checkbox"
-        >
-
-        <div>
-          <strong>Pozwól Homebrew zamknąć aplikację</strong>
-
-          <span>
-            Jeżeli wyłączysz tę opcję, skrypt użyje --no-quit.
-          </span>
-        </div>
-
-      </label>
-
-
-      <label class="option">
-
-        <input
-          id="optCleanup"
-          type="checkbox"
-        >
+        <input id="optCleanup" type="checkbox" />
 
         <div>
           <strong>brew cleanup po zakończeniu</strong>
-
-          <span>
-            Opcjonalne czyszczenie starszych plików Homebrew.
-          </span>
+          <span>Opcjonalne czyszczenie starszych plików Homebrew.</span>
         </div>
-
       </label>
 
     </div>
 
     <div class="notice yellow">
-
-      <div class="notice-icon">
-        ⚠️
-      </div>
-
+      <div class="notice-icon">⚠️</div>
       <div>
-
-        <strong>Bezpieczna domyślna konfiguracja</strong>
-
+        <strong>Ważne</strong>
         <p>
-          Instalowanie całkowicie brakujących programów jest domyślnie wyłączone.
-          Generator ma przede wszystkim aktualizować aplikacje wskazane przez Qualys,
-          a nie zmieniać zestaw oprogramowania klienta.
+          Generator aktualizuje tylko wybrane aplikacje. Nie uruchamia globalnego
+          <code>brew upgrade --cask</code> dla wszystkich programów na komputerze.
         </p>
-
       </div>
-
     </div>
 
   </section>
 
-
-  <!-- GENERATE -->
 
   <section class="card">
 
     <div class="generate-area">
 
       <div>
-
         <h2 style="margin-bottom:4px;">
           <span class="section-number">5</span>
-          Generuj
+          Generuj komendę
         </h2>
 
-        <div
-          id="generateSummary"
-          class="generate-summary"
-        >
+        <div id="generateSummary" class="generate-summary">
           Wybierz przynajmniej jedną aplikację.
         </div>
-
       </div>
 
       <button
         class="btn btn-primary btn-large"
-        onclick="generateScript()"
+        onclick="generateTerminalCommand()"
       >
-        ⚡ Generuj skrypt
+        ⚡ Generuj do Terminala
       </button>
 
     </div>
@@ -1456,61 +1081,47 @@ Zoom Workplace"
   </section>
 
 
-  <!-- OUTPUT -->
+  <section id="outputCard" class="card output-card">
 
-  <section
-    id="outputCard"
-    class="card output-card"
-  >
-
-    <h2>
-      Gotowy skrypt
-    </h2>
+    <h2>Gotowe do wklejenia</h2>
 
     <p class="card-subtitle">
-      Skopiuj całość i wklej do Terminala na Macu klienta.
+      Skopiuj poniższą komendę w całości, wklej do Terminala na Macu klienta
+      i naciśnij Enter. Skrypt zostanie uruchomiony przez <code>/bin/bash</code>,
+      niezależnie od tego, czy domyślną powłoką użytkownika jest zsh.
     </p>
 
     <div class="script-window">
-
       <div class="script-toolbar">
-
         <div class="script-toolbar-left">
-
           <span class="dot red"></span>
           <span class="dot yellow"></span>
           <span class="dot green"></span>
-
-          <span style="margin-left:7px;">
-            QualysPatch.sh
-          </span>
-
+          <span style="margin-left:7px;">Terminal</span>
         </div>
 
         <button
           class="copy-small"
-          onclick="copyGeneratedScript(this)"
+          onclick="copyTerminalCommand(this)"
         >
-          Kopiuj cały skrypt
+          Kopiuj
         </button>
-
       </div>
 
       <textarea
-        id="output"
+        id="terminalOutput"
+        class="terminal-command"
         readonly
         spellcheck="false"
       ></textarea>
-
     </div>
 
     <div class="output-actions">
-
       <button
         class="btn btn-primary"
-        onclick="copyGeneratedScript(this)"
+        onclick="copyTerminalCommand(this)"
       >
-        📋 Kopiuj do schowka
+        📋 Kopiuj do Terminala
       </button>
 
       <button
@@ -1519,782 +1130,795 @@ Zoom Workplace"
       >
         ⬇ Pobierz .sh
       </button>
-
     </div>
+
+    <details>
+      <summary>Pokaż pełny skrypt Bash</summary>
+
+      <div class="source-wrap">
+        <textarea
+          id="sourceOutput"
+          readonly
+          spellcheck="false"
+        ></textarea>
+      </div>
+    </details>
 
   </section>
 
 
   <div class="footer">
-    Qualys macOS Patch Generator • narzędzie pomocnicze Helpdesk
+    Qualys macOS Patch Generator • Homebrew Cask API • Helpdesk
   </div>
 
 </div>
 
 
 <script>
+"use strict";
 
 /* ============================================================
-   COMMANDS
+   CONFIG
    ============================================================ */
 
-const homebrewInstallCommand =
+const CASK_API = "https://formulae.brew.sh/api/cask.json";
+const CACHE_KEY = "qualysMacPatch_caskDb_v2";
+const CACHE_TIME_KEY = "qualysMacPatch_caskDbTime_v2";
+const CACHE_MAX_AGE = 6 * 60 * 60 * 1000;
+
+const HOMEBREW_INSTALL =
   '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"';
 
-const appleSiliconPathCommand =
-`echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"`;
-
-const intelPathCommand =
-`echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/usr/local/bin/brew shellenv)"`;
+let caskDb = [];
+let selected = new Map();
+let currentQualysResults = [];
+let latestScript = "";
+let latestTerminalCommand = "";
 
 
 /* ============================================================
-   APPLICATION DATABASE
+   DATABASE
    ============================================================ */
 
-const apps = [
+async function loadCaskDatabase(force = false) {
 
-  {
-    name: "Google Chrome",
-    cask: "google-chrome",
-    app: "Google Chrome.app",
-    aliases: [
-      "google chrome",
-      "chrome"
-    ]
-  },
+  setDbStatus("loading", "Ładowanie bazy Homebrew…");
 
-  {
-    name: "Microsoft Edge",
-    cask: "microsoft-edge",
-    app: "Microsoft Edge.app",
-    aliases: [
-      "microsoft edge",
-      "edge"
-    ]
-  },
+  if (!force) {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      const timestamp = Number(localStorage.getItem(CACHE_TIME_KEY) || 0);
 
-  {
-    name: "Mozilla Firefox",
-    cask: "firefox",
-    app: "Firefox.app",
-    aliases: [
-      "mozilla firefox",
-      "firefox"
-    ]
-  },
+      if (raw && Date.now() - timestamp < CACHE_MAX_AGE) {
+        const cached = JSON.parse(raw);
 
-  {
-    name: "Microsoft Teams",
-    cask: "microsoft-teams",
-    app: "Microsoft Teams.app",
-    aliases: [
-      "microsoft teams",
-      "teams"
-    ]
-  },
-
-  {
-    name: "Microsoft OneDrive",
-    cask: "onedrive",
-    app: "OneDrive.app",
-    aliases: [
-      "microsoft onedrive",
-      "onedrive"
-    ]
-  },
-
-  {
-    name: "Microsoft Outlook",
-    cask: "microsoft-outlook",
-    app: "Microsoft Outlook.app",
-    aliases: [
-      "microsoft outlook",
-      "outlook"
-    ]
-  },
-
-  {
-    name: "Microsoft Word",
-    cask: "microsoft-word",
-    app: "Microsoft Word.app",
-    aliases: [
-      "microsoft word",
-      "word"
-    ]
-  },
-
-  {
-    name: "Microsoft Excel",
-    cask: "microsoft-excel",
-    app: "Microsoft Excel.app",
-    aliases: [
-      "microsoft excel",
-      "excel"
-    ]
-  },
-
-  {
-    name: "Microsoft PowerPoint",
-    cask: "microsoft-powerpoint",
-    app: "Microsoft PowerPoint.app",
-    aliases: [
-      "microsoft powerpoint",
-      "powerpoint"
-    ]
-  },
-
-  {
-    name: "Adobe Acrobat Reader",
-    cask: "adobe-acrobat-reader",
-    app: "Adobe Acrobat Reader.app",
-    aliases: [
-      "adobe acrobat reader",
-      "acrobat reader",
-      "adobe reader"
-    ]
-  },
-
-  {
-    name: "Adobe Acrobat",
-    cask: "adobe-acrobat-pro",
-    app: "Adobe Acrobat.app",
-    aliases: [
-      "adobe acrobat pro",
-      "adobe acrobat"
-    ]
-  },
-
-  {
-    name: "Zoom Workplace",
-    cask: "zoom",
-    app: "zoom.us.app",
-    aliases: [
-      "zoom workplace",
-      "zoom.us",
-      "zoom"
-    ]
-  },
-
-  {
-    name: "VLC media player",
-    cask: "vlc",
-    app: "VLC.app",
-    aliases: [
-      "vlc media player",
-      "videolan",
-      "vlc"
-    ]
-  },
-
-  {
-    name: "Slack",
-    cask: "slack",
-    app: "Slack.app",
-    aliases: [
-      "slack"
-    ]
-  },
-
-  {
-    name: "TeamViewer",
-    cask: "teamviewer",
-    app: "TeamViewer.app",
-    aliases: [
-      "teamviewer"
-    ]
-  },
-
-  {
-    name: "AnyDesk",
-    cask: "anydesk",
-    app: "AnyDesk.app",
-    aliases: [
-      "anydesk"
-    ]
-  },
-
-  {
-    name: "Citrix Workspace",
-    cask: "citrix-workspace",
-    app: "Citrix Workspace.app",
-    aliases: [
-      "citrix workspace",
-      "citrix"
-    ]
-  },
-
-  {
-    name: "Cisco Secure Client",
-    cask: "cisco-secure-client",
-    app: "Cisco Secure Client.app",
-    aliases: [
-      "cisco secure client",
-      "cisco anyconnect",
-      "anyconnect"
-    ]
-  },
-
-  {
-    name: "Google Drive",
-    cask: "google-drive",
-    app: "Google Drive.app",
-    aliases: [
-      "google drive",
-      "drive for desktop"
-    ]
-  },
-
-  {
-    name: "Dropbox",
-    cask: "dropbox",
-    app: "Dropbox.app",
-    aliases: [
-      "dropbox"
-    ]
-  },
-
-  {
-    name: "Spotify",
-    cask: "spotify",
-    app: "Spotify.app",
-    aliases: [
-      "spotify"
-    ]
-  },
-
-  {
-    name: "Visual Studio Code",
-    cask: "visual-studio-code",
-    app: "Visual Studio Code.app",
-    aliases: [
-      "visual studio code",
-      "vscode",
-      "vs code"
-    ]
-  },
-
-  {
-    name: "Postman",
-    cask: "postman",
-    app: "Postman.app",
-    aliases: [
-      "postman"
-    ]
-  },
-
-  {
-    name: "Keka",
-    cask: "keka",
-    app: "Keka.app",
-    aliases: [
-      "keka"
-    ]
+        if (Array.isArray(cached) && cached.length > 1000) {
+          caskDb = prepareDatabase(cached);
+          setDbStatus("ok", `Baza Homebrew gotowa • ${caskDb.length.toLocaleString("pl-PL")} Casków`);
+          return;
+        }
+      }
+    } catch (error) {
+      console.warn("Nie udało się odczytać cache:", error);
+    }
   }
 
-];
-
-let selected = new Set();
-
-let customApps = [];
-
-
-/* ============================================================
-   RENDER APPS
-   ============================================================ */
-
-function renderApps() {
-
-  const grid = document.getElementById("appsGrid");
-
-  const search =
-    document
-      .getElementById("search")
-      .value
-      .trim()
-      .toLowerCase();
-
-  grid.innerHTML = "";
-
-  const allApps = [
-    ...apps,
-    ...customApps
-  ];
-
-  const filtered =
-    allApps.filter(app => {
-
-      const haystack =
-        [
-          app.name,
-          app.cask,
-          app.app,
-          ...(app.aliases || [])
-        ]
-        .join(" ")
-        .toLowerCase();
-
-      return haystack.includes(search);
-
+  try {
+    const response = await fetch(CASK_API, {
+      cache: force ? "no-store" : "default"
     });
 
-  filtered.forEach(app => {
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
 
-    const card =
-      document.createElement("label");
+    const data = await response.json();
 
-    card.className =
-      "app-card" +
-      (
-        selected.has(app.cask)
-          ? " selected"
-          : ""
-      );
+    if (!Array.isArray(data) || data.length < 1000) {
+      throw new Error("Nieprawidłowa odpowiedź API");
+    }
 
-    card.dataset.cask =
-      app.cask;
+    caskDb = prepareDatabase(data);
 
-    const checkbox =
-      document.createElement("input");
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+      localStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
+    } catch (error) {
+      console.warn("Cache localStorage niedostępny:", error);
+    }
 
-    checkbox.type =
-      "checkbox";
+    setDbStatus("ok", `Baza Homebrew gotowa • ${caskDb.length.toLocaleString("pl-PL")} Casków`);
 
-    checkbox.checked =
-      selected.has(app.cask);
+  } catch (error) {
+    console.error(error);
 
-    checkbox.addEventListener(
-      "change",
-      () => {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
 
-        if (checkbox.checked) {
+      if (raw) {
+        const cached = JSON.parse(raw);
 
-          selected.add(
-            app.cask
+        if (Array.isArray(cached) && cached.length) {
+          caskDb = prepareDatabase(cached);
+          setDbStatus(
+            "error",
+            `API niedostępne • używam zapisanej bazy (${caskDb.length.toLocaleString("pl-PL")})`
           );
-
-        } else {
-
-          selected.delete(
-            app.cask
-          );
-
+          return;
         }
-
-        renderApps();
-        updateCounter();
-
       }
-    );
+    } catch (_) {}
 
-    const info =
-      document.createElement("div");
+    setDbStatus("error", "Nie udało się pobrać bazy Homebrew");
 
-    info.className =
-      "app-info";
-
-    info.innerHTML = `
-      <div class="app-name">
-        ${escapeHtml(app.name)}
-      </div>
-
-      <div class="app-cask">
-        ${escapeHtml(app.cask)}
+    document.getElementById("qualysResults").innerHTML = `
+      <div class="notice red">
+        <div class="notice-icon">❌</div>
+        <div>
+          <strong>Brak dostępu do Homebrew Cask API</strong>
+          <p>
+            Sprawdź połączenie z Internetem i kliknij „Odśwież bazę”.
+          </p>
+        </div>
       </div>
     `;
+  }
+}
 
-    card.appendChild(
-      checkbox
-    );
 
-    card.appendChild(
-      info
-    );
+function prepareDatabase(data) {
 
-    grid.appendChild(
-      card
-    );
+  return data.map(item => {
 
-  });
+    const names = Array.isArray(item.name)
+      ? item.name
+      : [item.name || item.token];
 
-  updateCounter();
+    const name = names.filter(Boolean)[0] || item.token;
+
+    const appBundles = extractAppBundles(item.artifacts);
+
+    const searchText = normalizeText([
+      item.token,
+      ...names,
+      item.desc || "",
+      item.homepage || ""
+    ].join(" "));
+
+    return {
+      raw: item,
+      token: item.token || "",
+      name,
+      names,
+      desc: item.desc || "",
+      version: item.version || "—",
+      homepage: item.homepage || "",
+      appBundles,
+      searchText,
+      normalizedToken: normalizeText(item.token || ""),
+      normalizedNames: names.map(normalizeText)
+    };
+
+  }).filter(item => item.token);
 
 }
 
 
+function extractAppBundles(artifacts) {
+
+  if (!Array.isArray(artifacts)) {
+    return [];
+  }
+
+  const result = [];
+
+  for (const artifact of artifacts) {
+
+    if (!artifact || typeof artifact !== "object" || Array.isArray(artifact)) {
+      continue;
+    }
+
+    if ("app" in artifact) {
+      const value = artifact.app;
+
+      if (Array.isArray(value)) {
+        for (const entry of value) {
+          if (typeof entry === "string" && entry.endsWith(".app")) {
+            result.push(entry);
+          }
+        }
+      } else if (typeof value === "string" && value.endsWith(".app")) {
+        result.push(value);
+      }
+    }
+  }
+
+  return [...new Set(result)];
+}
+
+
+function setDbStatus(type, text) {
+
+  const el = document.getElementById("dbStatus");
+
+  el.className = `status-pill ${type}`;
+
+  if (type === "loading") {
+    el.innerHTML = `<span class="spinner"></span>${escapeHtml(text)}`;
+  } else {
+    el.textContent = text;
+  }
+}
+
+
 /* ============================================================
-   COUNTER
+   NORMALIZATION / SEARCH
    ============================================================ */
 
-function updateCounter() {
+function normalizeText(value) {
 
-  const count =
-    selected.size;
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .replace(/\s+/g, " ");
+}
 
-  document.getElementById("counter").textContent =
-    count === 1
-      ? "1 wybrana"
-      : `${count} wybranych`;
+
+function compactText(value) {
+  return normalizeText(value).replace(/\s+/g, "");
+}
+
+
+function cleanQualysQuery(line) {
+
+  let value = String(line || "").trim();
+
+  value = value
+    .replace(/^[\s•·▪◦\-–—*✓✔☑]+/, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return value;
+}
+
+
+function queryWords(query) {
+
+  return normalizeText(query)
+    .split(" ")
+    .filter(word => word.length >= 2);
+}
+
+
+function levenshtein(a, b) {
+
+  if (a === b) return 0;
+  if (!a.length) return b.length;
+  if (!b.length) return a.length;
+
+  const previous = Array.from({ length: b.length + 1 }, (_, i) => i);
+  const current = new Array(b.length + 1);
+
+  for (let i = 1; i <= a.length; i++) {
+    current[0] = i;
+
+    for (let j = 1; j <= b.length; j++) {
+
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+
+      current[j] = Math.min(
+        current[j - 1] + 1,
+        previous[j] + 1,
+        previous[j - 1] + cost
+      );
+    }
+
+    for (let j = 0; j <= b.length; j++) {
+      previous[j] = current[j];
+    }
+  }
+
+  return previous[b.length];
+}
+
+
+function similarity(a, b) {
+
+  const x = compactText(a);
+  const y = compactText(b);
+
+  if (!x || !y) return 0;
+
+  const distance = levenshtein(x, y);
+  const maxLength = Math.max(x.length, y.length);
+
+  return maxLength === 0
+    ? 1
+    : 1 - distance / maxLength;
+}
+
+
+function scoreCask(query, cask) {
+
+  const q = normalizeText(query);
+  const qc = compactText(query);
+
+  if (!q) return 0;
+
+  let score = 0;
+
+  const token = cask.normalizedToken;
+  const tokenCompact = compactText(cask.token);
+
+  if (q === token || qc === tokenCompact) {
+    score = Math.max(score, 100);
+  }
+
+  for (const name of cask.normalizedNames) {
+    const nameCompact = name.replace(/\s+/g, "");
+
+    if (q === name || qc === nameCompact) {
+      score = Math.max(score, 100);
+    }
+
+    if (name.startsWith(q)) {
+      score = Math.max(score, 94 - Math.min(8, name.length - q.length) * 0.12);
+    }
+
+    if (name.includes(q)) {
+      score = Math.max(score, 90 - Math.min(12, name.length - q.length) * 0.08);
+    }
+
+    if (q.includes(name) && name.length >= 5) {
+      score = Math.max(score, 91);
+    }
+
+    const sim = similarity(q, name);
+    score = Math.max(score, sim * 86);
+  }
+
+  if (token.startsWith(q)) {
+    score = Math.max(score, 93);
+  }
+
+  if (token.includes(q)) {
+    score = Math.max(score, 88);
+  }
+
+  const words = queryWords(q);
+
+  if (words.length) {
+    const matchedWords = words.filter(word => cask.searchText.includes(word));
+
+    if (matchedWords.length === words.length) {
+      score = Math.max(score, 82 + Math.min(8, words.length * 2));
+    } else if (matchedWords.length > 0) {
+      score = Math.max(score, 58 + (matchedWords.length / words.length) * 20);
+    }
+  }
+
+  if (cask.searchText.includes(q)) {
+    score = Math.max(score, 80);
+  }
+
+  return Math.round(score * 100) / 100;
+}
+
+
+function searchCasks(query, limit = 5) {
+
+  if (!caskDb.length) {
+    return [];
+  }
+
+  const cleaned = cleanQualysQuery(query);
+
+  if (!cleaned) {
+    return [];
+  }
+
+  return caskDb
+    .map(cask => ({
+      cask,
+      score: scoreCask(cleaned, cask)
+    }))
+    .filter(item => item.score >= 45)
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+
+      const aLen = a.cask.name.length;
+      const bLen = b.cask.name.length;
+
+      return aLen - bLen;
+    })
+    .slice(0, limit);
+}
+
+
+/* ============================================================
+   QUALYS SEARCH
+   ============================================================ */
+
+async function recognizeQualys() {
+
+  const input = document.getElementById("qualysInput").value.trim();
+
+  if (!input) {
+    alert("Najpierw wpisz lub wklej nazwy aplikacji z Qualysa.");
+    return;
+  }
+
+  if (!caskDb.length) {
+    await loadCaskDatabase(true);
+
+    if (!caskDb.length) {
+      return;
+    }
+  }
+
+  const queries = input
+    .split(/\r?\n/)
+    .map(cleanQualysQuery)
+    .filter(Boolean);
+
+  currentQualysResults = queries.map(query => {
+    const candidates = searchCasks(query, 5);
+
+    return {
+      query,
+      candidates
+    };
+  });
+
+  renderQualysResults();
+}
+
+
+function renderQualysResults() {
+
+  const container = document.getElementById("qualysResults");
+
+  if (!currentQualysResults.length) {
+    container.innerHTML = "";
+    return;
+  }
+
+  container.innerHTML = currentQualysResults.map((entry, queryIndex) => {
+
+    if (!entry.candidates.length) {
+      return `
+        <div class="query-card">
+          <div class="query-header">
+            <div class="query-title">${escapeHtml(entry.query)}</div>
+            <div class="query-state none">Brak wyniku</div>
+          </div>
+
+          <div class="candidate">
+            <div class="candidate-main">
+              <div class="candidate-desc">
+                Nie znaleziono sensownego dopasowania w aktualnej bazie Homebrew Cask.
+                Spróbuj krótszej nazwy w ręcznej wyszukiwarce.
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    const top = entry.candidates[0];
+
+    const stateClass = top.score >= 96
+      ? "exact"
+      : "similar";
+
+    const stateText = top.score >= 96
+      ? "Bardzo dobre dopasowanie"
+      : "Sprawdź wynik";
+
+    const candidatesHtml = entry.candidates.map((item, candidateIndex) => {
+      const cask = item.cask;
+      const already = selected.has(cask.token);
+
+      return `
+        <div class="candidate">
+          <div class="candidate-main">
+            <div class="candidate-name">${escapeHtml(cask.name)}</div>
+
+            <div class="candidate-meta">
+              <span><strong>Cask:</strong> ${escapeHtml(cask.token)}</span>
+              <span><strong>Wersja:</strong> ${escapeHtml(cask.version)}</span>
+              <span><strong>Dopasowanie:</strong> ${Math.round(item.score)}%</span>
+            </div>
+
+            ${cask.desc
+              ? `<div class="candidate-desc">${escapeHtml(cask.desc)}</div>`
+              : ""
+            }
+          </div>
+
+          <button
+            class="btn ${already ? "btn-secondary" : "btn-primary"}"
+            onclick="selectCandidate(${queryIndex}, ${candidateIndex})"
+            ${already ? "disabled" : ""}
+          >
+            ${already ? "✓ Dodano" : "+ Dodaj"}
+          </button>
+        </div>
+      `;
+    }).join("");
+
+    return `
+      <div class="query-card">
+        <div class="query-header">
+          <div class="query-title">${escapeHtml(entry.query)}</div>
+          <div class="query-state ${stateClass}">${stateText}</div>
+        </div>
+
+        <div class="candidate-list">
+          ${candidatesHtml}
+        </div>
+      </div>
+    `;
+
+  }).join("");
+}
+
+
+function selectCandidate(queryIndex, candidateIndex) {
+
+  const entry = currentQualysResults[queryIndex];
+
+  if (!entry) return;
+
+  const candidate = entry.candidates[candidateIndex];
+
+  if (!candidate) return;
+
+  addSelected(candidate.cask);
+
+  renderQualysResults();
+}
+
+
+/* ============================================================
+   MANUAL SEARCH
+   ============================================================ */
+
+let manualSearchTimer = null;
+
+function handleManualSearch() {
+
+  clearTimeout(manualSearchTimer);
+
+  manualSearchTimer = setTimeout(() => {
+
+    const query = document.getElementById("manualSearch").value.trim();
+    const container = document.getElementById("manualResults");
+
+    if (!query) {
+      container.innerHTML = "";
+      return;
+    }
+
+    if (!caskDb.length) {
+      container.innerHTML = `
+        <div class="notice yellow">
+          <div class="notice-icon">⚠️</div>
+          <div>
+            <strong>Baza Homebrew nie jest jeszcze gotowa</strong>
+            <p>Poczekaj chwilę albo kliknij „Odśwież bazę”.</p>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    const results = searchCasks(query, 8);
+
+    if (!results.length) {
+      container.innerHTML = `
+        <div class="notice yellow">
+          <div class="notice-icon">🔎</div>
+          <div>
+            <strong>Brak wyniku</strong>
+            <p>Spróbuj skrócić nazwę aplikacji.</p>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = results.map((item, index) => {
+      const cask = item.cask;
+      const already = selected.has(cask.token);
+
+      return `
+        <div class="search-result">
+          <div>
+            <div class="candidate-name">${escapeHtml(cask.name)}</div>
+
+            <div class="candidate-meta">
+              <span>${escapeHtml(cask.token)}</span>
+              <span>wersja ${escapeHtml(cask.version)}</span>
+              <span>${Math.round(item.score)}%</span>
+            </div>
+          </div>
+
+          <button
+            class="btn ${already ? "btn-secondary" : "btn-primary"}"
+            onclick="addManualResult('${jsString(cask.token)}')"
+            ${already ? "disabled" : ""}
+          >
+            ${already ? "✓ Dodano" : "+ Dodaj"}
+          </button>
+        </div>
+      `;
+    }).join("");
+
+  }, 180);
+}
+
+
+function addManualResult(token) {
+
+  const cask = caskDb.find(item => item.token === token);
+
+  if (!cask) return;
+
+  addSelected(cask);
+  handleManualSearch();
+}
+
+
+/* ============================================================
+   SELECTED
+   ============================================================ */
+
+function addSelected(cask) {
+  selected.set(cask.token, cask);
+  renderSelected();
+  updateGenerateSummary();
+}
+
+
+function removeSelected(token) {
+  selected.delete(token);
+  renderSelected();
+  renderQualysResults();
+  handleManualSearch();
+  updateGenerateSummary();
+}
+
+
+function renderSelected() {
+
+  const container = document.getElementById("selectedList");
+  const empty = document.getElementById("selectedEmpty");
+
+  const items = [...selected.values()];
+
+  if (!items.length) {
+    container.innerHTML = "";
+    empty.classList.remove("hidden");
+    return;
+  }
+
+  empty.classList.add("hidden");
+
+  container.innerHTML = items.map(cask => {
+
+    const appInfo = cask.appBundles.length
+      ? `• ${cask.appBundles.map(escapeHtml).join(", ")}`
+      : "• instalator bez prostego artefaktu .app";
+
+    return `
+      <div class="selected-item">
+        <div>
+          <div class="selected-name">${escapeHtml(cask.name)}</div>
+
+          <div class="selected-meta">
+            ${escapeHtml(cask.token)}
+            • wersja ${escapeHtml(cask.version)}
+            ${appInfo}
+          </div>
+        </div>
+
+        <button
+          class="btn btn-danger"
+          onclick="removeSelected('${jsString(cask.token)}')"
+        >
+          Usuń
+        </button>
+      </div>
+    `;
+  }).join("");
+}
+
+
+function updateGenerateSummary() {
+
+  const count = selected.size;
 
   document.getElementById("generateSummary").textContent =
     count === 0
       ? "Wybierz przynajmniej jedną aplikację."
       : `Skrypt obejmie ${count} ${count === 1 ? "aplikację" : "aplikacji"}.`;
-
 }
 
 
 /* ============================================================
-   SELECT
+   SCRIPT GENERATOR
    ============================================================ */
 
-function selectAllVisible() {
+function generateTerminalCommand() {
 
-  const cards =
-    document.querySelectorAll(
-      ".app-card"
-    );
+  const items = [...selected.values()];
 
-  cards.forEach(card => {
-
-    selected.add(
-      card.dataset.cask
-    );
-
-  });
-
-  renderApps();
-
-}
-
-
-function unselectAll() {
-
-  selected.clear();
-
-  renderApps();
-
-}
-
-
-/* ============================================================
-   QUALYS DETECTION
-   ============================================================ */
-
-function detectFromQualys() {
-
-  const raw =
-    document
-      .getElementById("qualysInput")
-      .value
-      .toLowerCase();
-
-  if (!raw.trim()) {
-
-    alert(
-      "Najpierw wklej dane z Qualysa."
-    );
-
+  if (!items.length) {
+    alert("Najpierw wybierz przynajmniej jedną aplikację.");
     return;
-
   }
 
-  let detected = [];
+  latestScript = buildBashScript(items);
 
-  apps.forEach(app => {
+  const encoded = utf8ToBase64(latestScript);
 
-    const aliases =
-      [
-        app.name,
-        ...(app.aliases || [])
-      ];
+  latestTerminalCommand =
+    `printf '%s' '${encoded}' | /usr/bin/base64 -D | /bin/bash`;
 
-    const match =
-      aliases.some(alias =>
-        raw.includes(
-          alias.toLowerCase()
-        )
-      );
+  document.getElementById("terminalOutput").value = latestTerminalCommand;
+  document.getElementById("sourceOutput").value = latestScript;
 
-    if (match) {
+  const card = document.getElementById("outputCard");
+  card.classList.add("visible");
 
-      selected.add(
-        app.cask
-      );
-
-      detected.push(
-        app.name
-      );
-
-    }
-
-  });
-
-  renderApps();
-
-  const box =
-    document.getElementById(
-      "qualysResult"
-    );
-
-  const title =
-    document.getElementById(
-      "qualysResultTitle"
-    );
-
-  const text =
-    document.getElementById(
-      "qualysResultText"
-    );
-
-  box.classList.remove(
-    "hidden"
-  );
-
-  if (detected.length) {
-
-    box.className =
-      "notice green";
-
-    title.textContent =
-      `Rozpoznano ${detected.length} aplikacji`;
-
-    text.textContent =
-      detected.join(", ");
-
-  } else {
-
-    box.className =
-      "notice yellow";
-
-    title.textContent =
-      "Nie znaleziono pasujących aplikacji";
-
-    text.textContent =
-      "Zaznacz aplikacje ręcznie lub dodaj własny Homebrew Cask.";
-
-  }
-
+  setTimeout(() => {
+    card.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }, 50);
 }
 
 
-function clearQualys() {
+function buildBashScript(items) {
 
-  document.getElementById(
-    "qualysInput"
-  ).value = "";
+  const brewUpdate = document.getElementById("optBrewUpdate").checked;
+  const greedy = document.getElementById("optGreedy").checked;
+  const noQuit = document.getElementById("optNoQuit").checked;
+  const adopt = document.getElementById("optAdopt").checked;
+  const installUnknown = document.getElementById("optInstallUnknown").checked;
+  const installMissing = document.getElementById("optInstallMissing").checked;
+  const logging = document.getElementById("optLog").checked;
+  const cleanup = document.getElementById("optCleanup").checked;
 
-  document.getElementById(
-    "qualysResult"
-  ).classList.add(
-    "hidden"
-  );
+  const appLines = items.map(item => {
 
-}
+    const bundle =
+      item.appBundles.length
+        ? item.appBundles[0]
+        : "";
 
+    return `"${shellField(item.token)}|${shellField(item.name)}|${shellField(bundle)}|${shellField(item.version)}"`;
 
-/* ============================================================
-   CUSTOM APP
-   ============================================================ */
+  }).join("\n  ");
 
-function addCustomApp() {
+  const flags = [];
 
-  const name =
-    document
-      .getElementById("customName")
-      .value
-      .trim();
+  if (greedy) flags.push("--greedy");
+  if (noQuit) flags.push("--no-quit");
 
-  const cask =
-    document
-      .getElementById("customCask")
-      .value
-      .trim();
+  const upgradeFlags = flags.join(" ");
 
-  if (!name || !cask) {
-
-    alert(
-      "Podaj nazwę aplikacji i nazwę Homebrew Cask."
-    );
-
-    return;
-
-  }
-
-  if (
-    !/^[a-zA-Z0-9._+-]+$/.test(cask)
-  ) {
-
-    alert(
-      "Nazwa Cask zawiera niedozwolone znaki."
-    );
-
-    return;
-
-  }
-
-  const exists =
-    [...apps, ...customApps]
-      .some(app =>
-        app.cask === cask
-      );
-
-  if (exists) {
-
-    selected.add(
-      cask
-    );
-
-    renderApps();
-
-    return;
-
-  }
-
-  customApps.push({
-
-    name,
-    cask,
-
-    app:
-      name.endsWith(".app")
-        ? name
-        : `${name}.app`,
-
-    aliases: [
-      name.toLowerCase()
-    ],
-
-    custom: true
-
-  });
-
-  selected.add(
-    cask
-  );
-
-  document.getElementById(
-    "customName"
-  ).value = "";
-
-  document.getElementById(
-    "customCask"
-  ).value = "";
-
-  renderApps();
-
-}
-
-
-/* ============================================================
-   GET SELECTED APPS
-   ============================================================ */
-
-function getSelectedApps() {
-
-  const allApps =
-    [
-      ...apps,
-      ...customApps
-    ];
-
-  return allApps.filter(
-    app =>
-      selected.has(
-        app.cask
-      )
-  );
-
-}
-
-
-/* ============================================================
-   GENERATOR
-   ============================================================ */
-
-function generateScript() {
-
-  const chosen =
-    getSelectedApps();
-
-  if (!chosen.length) {
-
-    alert(
-      "Wybierz przynajmniej jedną aplikację."
-    );
-
-    return;
-
-  }
-
-  const brewUpdate =
-    document
-      .getElementById("optBrewUpdate")
-      .checked;
-
-  const greedy =
-    document
-      .getElementById("optGreedy")
-      .checked;
-
-  const adopt =
-    document
-      .getElementById("optAdopt")
-      .checked;
-
-  const installMissing =
-    document
-      .getElementById("optInstallMissing")
-      .checked;
-
-  const logging =
-    document
-      .getElementById("optLog")
-      .checked;
-
-  const versions =
-    document
-      .getElementById("optVersions")
-      .checked;
-
-  const closeApps =
-    document
-      .getElementById("optCloseApps")
-      .checked;
-
-  const cleanup =
-    document
-      .getElementById("optCleanup")
-      .checked;
-
-
-  const appArray =
-    chosen.map(app =>
-      `"${shellEscape(app.name)}|${shellEscape(app.cask)}|${shellEscape(app.app)}"`
-    )
-    .join("\n  ");
-
-
-  const greedyFlag =
-    greedy
-      ? "--greedy"
-      : "";
-
-
-  const noQuitFlag =
-    closeApps
-      ? ""
-      : "--no-quit";
-
-
-  const script =
-`#!/bin/bash
+  return `#!/bin/bash
 
 # ============================================================
 # Qualys macOS Patch Assistant
-# Generated automatically
+# Wygenerowano przez Qualys macOS Patch Generator
 # ============================================================
 
 set +e
@@ -2305,28 +1929,20 @@ FAILED=0
 MISSING=0
 
 BREW=""
+USE_LOG=${logging ? "1" : "0"}
+ADOPT_EXISTING=${adopt ? "1" : "0"}
+INSTALL_UNKNOWN=${installUnknown ? "1" : "0"}
+INSTALL_MISSING=${installMissing ? "1" : "0"}
+
+UPGRADE_FLAGS="${upgradeFlags}"
 
 LOG_FILE="/tmp/qualys-patch-$(date +%Y%m%d-%H%M%S).log"
 
-USE_LOG=${logging ? "1" : "0"}
-SHOW_VERSIONS=${versions ? "1" : "0"}
-ADOPT_EXISTING=${adopt ? "1" : "0"}
-INSTALL_MISSING=${installMissing ? "1" : "0"}
-
-GREEDY_FLAG="${greedyFlag}"
-NO_QUIT_FLAG="${noQuitFlag}"
-
 APPS=(
-  ${appArray}
+  ${appLines}
 )
 
-
-# ------------------------------------------------------------
-# Kolory
-# ------------------------------------------------------------
-
 if [ -t 1 ]; then
-
   BLUE="\\033[0;34m"
   GREEN="\\033[0;32m"
   YELLOW="\\033[0;33m"
@@ -2334,9 +1950,7 @@ if [ -t 1 ]; then
   CYAN="\\033[0;36m"
   BOLD="\\033[1m"
   RESET="\\033[0m"
-
 else
-
   BLUE=""
   GREEN=""
   YELLOW=""
@@ -2344,34 +1958,54 @@ else
   CYAN=""
   BOLD=""
   RESET=""
-
 fi
 
-
-# ------------------------------------------------------------
-# Log
-# ------------------------------------------------------------
-
 log() {
-
   local message="$1"
 
   echo -e "$message"
 
   if [ "$USE_LOG" = "1" ]; then
-
     echo -e "$message" \\
       | sed $'s/\\\\033\\\\[[0-9;]*m//g' \\
       >> "$LOG_FILE"
-
   fi
-
 }
 
+get_app_version() {
+  local app_path="$1"
 
-# ------------------------------------------------------------
-# Nagłówek
-# ------------------------------------------------------------
+  if [ -z "$app_path" ] || [ ! -d "$app_path" ]; then
+    echo ""
+    return
+  fi
+
+  /usr/libexec/PlistBuddy \\
+    -c "Print :CFBundleShortVersionString" \\
+    "$app_path/Contents/Info.plist" \\
+    2>/dev/null
+}
+
+find_app_path() {
+  local bundle="$1"
+
+  if [ -z "$bundle" ]; then
+    echo ""
+    return
+  fi
+
+  if [ -d "/Applications/$bundle" ]; then
+    echo "/Applications/$bundle"
+    return
+  fi
+
+  if [ -d "$HOME/Applications/$bundle" ]; then
+    echo "$HOME/Applications/$bundle"
+    return
+  fi
+
+  echo ""
+}
 
 clear 2>/dev/null
 
@@ -2381,70 +2015,37 @@ log "\${BLUE}\${BOLD}        QUALYS macOS PATCH ASSISTANT\${RESET}"
 log "\${BLUE}\${BOLD}============================================================\${RESET}"
 log ""
 
-HOSTNAME_VALUE="$(scutil --get ComputerName 2>/dev/null)"
+COMPUTER_NAME="$(scutil --get ComputerName 2>/dev/null)"
 MACOS_VERSION="$(sw_vers -productVersion 2>/dev/null)"
 ARCH="$(uname -m)"
 
-log "Komputer:     \${HOSTNAME_VALUE:-Nieznany}"
+log "Komputer:     \${COMPUTER_NAME:-Nieznany}"
 log "macOS:        \${MACOS_VERSION:-Nieznany}"
 log "Architektura: \${ARCH}"
 log ""
 
-
-# ------------------------------------------------------------
-# Homebrew detection
-# ------------------------------------------------------------
-
 log "\${CYAN}[PRECHECK]\${RESET} Sprawdzanie Homebrew..."
 
-
 if command -v brew >/dev/null 2>&1; then
-
   BREW="$(command -v brew)"
-
 elif [ -x "/opt/homebrew/bin/brew" ]; then
-
   BREW="/opt/homebrew/bin/brew"
-
 elif [ -x "/usr/local/bin/brew" ]; then
-
   BREW="/usr/local/bin/brew"
-
 fi
 
-
 if [ -z "$BREW" ]; then
-
   log ""
   log "\${RED}❌ Homebrew nie jest zainstalowany.\${RESET}"
   log ""
-  log "Zainstaluj Homebrew:"
+  log "Zainstaluj Homebrew oficjalną komendą:"
   log ""
   log '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
   log ""
-
-  if [ "$ARCH" = "arm64" ]; then
-
-    log "Po instalacji Apple Silicon:"
-    log 'echo '\\''eval "$(/opt/homebrew/bin/brew shellenv)"'\\'' >> ~/.zprofile'
-    log 'eval "$(/opt/homebrew/bin/brew shellenv)"'
-
-  else
-
-    log "Po instalacji Intel:"
-    log 'echo '\\''eval "$(/usr/local/bin/brew shellenv)"'\\'' >> ~/.zprofile'
-    log 'eval "$(/usr/local/bin/brew shellenv)"'
-
-  fi
-
+  log "\${YELLOW}Po instalacji wykonaj polecenia „Next steps” pokazane przez instalator i uruchom ten skrypt ponownie.\${RESET}"
   log ""
-  log "\${YELLOW}Uruchom ten skrypt ponownie po instalacji Homebrew.\${RESET}"
-  log ""
-
   exit 1
-
 fi
-
 
 BREW_VERSION="$("$BREW" --version 2>/dev/null | head -n 1)"
 
@@ -2452,258 +2053,175 @@ log "\${GREEN}✅ Homebrew znaleziony: \${BREW}\${RESET}"
 log "   \${BREW_VERSION}"
 log ""
 
-
-${brewUpdate ? `
-# ------------------------------------------------------------
-# Brew update
-# ------------------------------------------------------------
-
-log "\${CYAN}[PRECHECK]\${RESET} Odświeżanie Homebrew..."
-
-"$BREW" update
+${brewUpdate ? `log "\${CYAN}[PRECHECK]\${RESET} Odświeżanie Homebrew..."
+"$BREW" update-if-needed
 
 if [ $? -eq 0 ]; then
-
-  log "\${GREEN}✅ Homebrew metadata zaktualizowane.\${RESET}"
-
+  log "\${GREEN}✅ Homebrew metadata gotowe.\${RESET}"
 else
-
-  log "\${YELLOW}⚠️ brew update zwrócił błąd. Kontynuuję.\${RESET}"
-
+  log "\${YELLOW}⚠️ Aktualizacja metadanych Homebrew zwróciła błąd. Kontynuuję.\${RESET}"
 fi
 
 log ""
 ` : ""}
 
-
-# ------------------------------------------------------------
-# Version helper
-# ------------------------------------------------------------
-
-get_app_version() {
-
-  local APP_PATH="$1"
-
-  if [ ! -d "$APP_PATH" ]; then
-
-    echo ""
-    return
-
-  fi
-
-  local VERSION
-
-  VERSION=$(
-    /usr/libexec/PlistBuddy \\
-      -c "Print :CFBundleShortVersionString" \\
-      "$APP_PATH/Contents/Info.plist" \\
-      2>/dev/null
-  )
-
-  if [ -z "$VERSION" ]; then
-
-    VERSION=$(
-      defaults read \\
-        "$APP_PATH/Contents/Info" \\
-        CFBundleShortVersionString \\
-        2>/dev/null
-    )
-
-  fi
-
-  echo "$VERSION"
-
-}
-
-
-# ------------------------------------------------------------
-# Patch applications
-# ------------------------------------------------------------
-
 TOTAL="\${#APPS[@]}"
 INDEX=0
-
 
 for ITEM in "\${APPS[@]}"; do
 
   INDEX=$((INDEX + 1))
 
-  IFS='|' read -r NAME CASK APP_BUNDLE <<< "$ITEM"
-
-  APP_PATH="/Applications/$APP_BUNDLE"
+  IFS='|' read -r CASK NAME APP_BUNDLE TARGET_VERSION <<< "$ITEM"
 
   log "\${BLUE}\${BOLD}------------------------------------------------------------\${RESET}"
   log "\${BLUE}\${BOLD}[\${INDEX}/\${TOTAL}] \${NAME}\${RESET}"
   log "\${BLUE}\${BOLD}------------------------------------------------------------\${RESET}"
+  log "Cask:            \${CASK}"
+  log "Wersja Homebrew: \${TARGET_VERSION}"
 
-  BEFORE_VERSION=""
+  APP_PATH="$(find_app_path "$APP_BUNDLE")"
 
-  if [ "$SHOW_VERSIONS" = "1" ]; then
-
+  if [ -n "$APP_PATH" ]; then
     BEFORE_VERSION="$(get_app_version "$APP_PATH")"
 
     if [ -n "$BEFORE_VERSION" ]; then
-
-      log "Wersja przed: \${BEFORE_VERSION}"
-
+      log "Wersja lokalna:  \${BEFORE_VERSION}"
     else
-
-      log "Wersja przed: brak / nierozpoznana"
-
+      log "Wersja lokalna:  nierozpoznana"
     fi
-
+  elif [ -n "$APP_BUNDLE" ]; then
+    log "Aplikacja .app:  nie znaleziona"
+  else
+    log "Aplikacja .app:  Cask nie udostępnia prostego artefaktu .app"
   fi
 
+  "$BREW" info --cask "$CASK" >/dev/null 2>&1
 
-  # ----------------------------------------------------------
-  # Czy Homebrew już zarządza aplikacją?
-  # ----------------------------------------------------------
+  if [ $? -ne 0 ]; then
+    log "\${RED}❌ Cask nie jest dostępny w bieżącej bazie Homebrew.\${RESET}"
+    FAILED=$((FAILED + 1))
+    log ""
+    continue
+  fi
 
   "$BREW" list --cask "$CASK" >/dev/null 2>&1
-
   BREW_MANAGED=$?
-
 
   if [ "$BREW_MANAGED" -eq 0 ]; then
 
     log "Status: Homebrew zarządza aplikacją."
     log "Aktualizacja..."
 
-    "$BREW" upgrade \\
-      --cask \\
-      "$CASK" \\
-      $GREEDY_FLAG \\
-      $NO_QUIT_FLAG
-
+    "$BREW" upgrade --cask "$CASK" $UPGRADE_FLAGS
     RESULT=$?
 
-
     if [ "$RESULT" -eq 0 ]; then
+      AFTER_PATH="$(find_app_path "$APP_BUNDLE")"
+      AFTER_VERSION="$(get_app_version "$AFTER_PATH")"
 
-      AFTER_VERSION="$(get_app_version "$APP_PATH")"
-
-      if [ "$SHOW_VERSIONS" = "1" ]; then
-
-        if [ -n "$AFTER_VERSION" ]; then
-
-          log "Wersja po:    \${AFTER_VERSION}"
-
-        fi
-
+      if [ -n "$AFTER_VERSION" ]; then
+        log "Wersja po:     \${AFTER_VERSION}"
       fi
 
-      log "\${GREEN}✅ Zakończono.\${RESET}"
-
+      log "\${GREEN}✅ Zakończono poprawnie.\${RESET}"
       SUCCESS=$((SUCCESS + 1))
-
     else
-
       log "\${RED}❌ Aktualizacja zakończona błędem.\${RESET}"
-
       FAILED=$((FAILED + 1))
-
     fi
 
     log ""
-
     continue
-
   fi
 
+  if [ -n "$APP_PATH" ]; then
 
-  # ----------------------------------------------------------
-  # Aplikacja istnieje, ale nie jest zarządzana przez Brew
-  # ----------------------------------------------------------
-
-  if [ -d "$APP_PATH" ]; then
-
-    log "\${YELLOW}⚠️ Aplikacja istnieje, ale nie jest zarządzana przez Homebrew.\${RESET}"
+    log "\${YELLOW}⚠️ Aplikacja istnieje, ale Homebrew jeszcze nią nie zarządza.\${RESET}"
 
     if [ "$ADOPT_EXISTING" = "1" ]; then
 
-      log "Instalowanie aktualnego Cask z --force..."
+      log "Próba aktualizacji/przejęcia przez Homebrew..."
 
-      "$BREW" install \\
-        --cask \\
-        "$CASK" \\
-        --force
-
+      "$BREW" install --cask "$CASK" --force
       RESULT=$?
 
-
       if [ "$RESULT" -eq 0 ]; then
+        AFTER_PATH="$(find_app_path "$APP_BUNDLE")"
+        AFTER_VERSION="$(get_app_version "$AFTER_PATH")"
 
-        AFTER_VERSION="$(get_app_version "$APP_PATH")"
-
-        if [ "$SHOW_VERSIONS" = "1" ] && [ -n "$AFTER_VERSION" ]; then
-
-          log "Wersja po:    \${AFTER_VERSION}"
-
+        if [ -n "$AFTER_VERSION" ]; then
+          log "Wersja po:     \${AFTER_VERSION}"
         fi
 
-        log "\${GREEN}✅ Aplikacja zaktualizowana i przejęta przez Homebrew.\${RESET}"
-
+        log "\${GREEN}✅ Zakończono poprawnie.\${RESET}"
         SUCCESS=$((SUCCESS + 1))
-
       else
-
         log "\${RED}❌ Nie udało się zaktualizować aplikacji.\${RESET}"
-
         FAILED=$((FAILED + 1))
-
       fi
 
     else
 
-      log "\${YELLOW}⏭ Pominięto — przejmowanie aplikacji przez Homebrew jest wyłączone.\${RESET}"
-
+      log "\${YELLOW}⏭ Pominięto — przejmowanie istniejących aplikacji jest wyłączone.\${RESET}"
       SKIPPED=$((SKIPPED + 1))
 
     fi
 
     log ""
-
     continue
-
   fi
 
+  if [ -z "$APP_BUNDLE" ]; then
 
-  # ----------------------------------------------------------
-  # Aplikacji w ogóle nie ma
-  # ----------------------------------------------------------
+    log "\${YELLOW}⚠️ Nie mogę wiarygodnie sprawdzić obecności programu po pliku .app.\${RESET}"
 
-  log "\${YELLOW}⚠️ Aplikacja nie została znaleziona w /Applications.\${RESET}"
+    if [ "$INSTALL_UNKNOWN" = "1" ]; then
 
+      log "Qualys wskazał tę aplikację — próbuję instalacji/aktualizacji Cask z --force..."
+
+      "$BREW" install --cask "$CASK" --force
+      RESULT=$?
+
+      if [ "$RESULT" -eq 0 ]; then
+        log "\${GREEN}✅ Operacja zakończona poprawnie.\${RESET}"
+        SUCCESS=$((SUCCESS + 1))
+      else
+        log "\${RED}❌ Operacja zakończona błędem.\${RESET}"
+        FAILED=$((FAILED + 1))
+      fi
+
+    else
+
+      log "\${YELLOW}⏭ Pominięto — aktualizacja Casków bez wykrywalnego .app jest wyłączona.\${RESET}"
+      SKIPPED=$((SKIPPED + 1))
+
+    fi
+
+    log ""
+    continue
+  fi
+
+  log "\${YELLOW}⚠️ Nie znaleziono aplikacji w /Applications ani ~/Applications.\${RESET}"
 
   if [ "$INSTALL_MISSING" = "1" ]; then
 
     log "Instalowanie brakującej aplikacji..."
 
-    "$BREW" install \\
-      --cask \\
-      "$CASK"
-
+    "$BREW" install --cask "$CASK"
     RESULT=$?
 
-
     if [ "$RESULT" -eq 0 ]; then
-
       log "\${GREEN}✅ Aplikacja zainstalowana.\${RESET}"
-
       SUCCESS=$((SUCCESS + 1))
-
     else
-
       log "\${RED}❌ Instalacja zakończona błędem.\${RESET}"
-
       FAILED=$((FAILED + 1))
-
     fi
 
   else
 
-    log "\${YELLOW}⏭ Nie instaluję — opcja instalowania brakujących aplikacji jest wyłączona.\${RESET}"
-
+    log "\${YELLOW}⏭ Pominięto — instalowanie brakujących aplikacji jest wyłączone.\${RESET}"
     MISSING=$((MISSING + 1))
 
   fi
@@ -2712,23 +2230,10 @@ for ITEM in "\${APPS[@]}"; do
 
 done
 
-
-${cleanup ? `
-# ------------------------------------------------------------
-# Cleanup
-# ------------------------------------------------------------
-
-log "\${CYAN}[CLEANUP]\${RESET} Homebrew cleanup..."
-
+${cleanup ? `log "\${CYAN}[CLEANUP]\${RESET} brew cleanup..."
 "$BREW" cleanup
-
 log ""
 ` : ""}
-
-
-# ------------------------------------------------------------
-# Summary
-# ------------------------------------------------------------
 
 log ""
 log "\${BLUE}\${BOLD}============================================================\${RESET}"
@@ -2738,206 +2243,103 @@ log ""
 
 log "\${GREEN}✅ Zakończone poprawnie: \${SUCCESS}\${RESET}"
 log "\${YELLOW}⏭ Pominięte:             \${SKIPPED}\${RESET}"
-log "\${YELLOW}⚠️ Brak aplikacji:        \${MISSING}\${RESET}"
+log "\${YELLOW}⚠️ Nie znaleziono:        \${MISSING}\${RESET}"
 log "\${RED}❌ Błędy:                \${FAILED}\${RESET}"
-
 log ""
 
 if [ "$USE_LOG" = "1" ]; then
-
   log "Log:"
   log "\${LOG_FILE}"
   log ""
-
 fi
-
 
 if [ "$FAILED" -gt 0 ]; then
-
-  log "\${RED}Skrypt zakończony z błędami.\${RESET}"
+  log "\${RED}Skrypt zakończył się z błędami.\${RESET}"
   exit 2
-
 fi
-
 
 log "\${GREEN}\${BOLD}Gotowe.\${RESET}"
 log ""
 
 exit 0
 `;
-
-
-  const output =
-    document.getElementById(
-      "output"
-    );
-
-  output.value =
-    script;
-
-  const card =
-    document.getElementById(
-      "outputCard"
-    );
-
-  card.classList.add(
-    "visible"
-  );
-
-  setTimeout(() => {
-
-    card.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-  }, 50);
-
 }
 
 
 /* ============================================================
-   COPY
+   COPY / DOWNLOAD
    ============================================================ */
 
 async function copyText(text, button) {
 
   try {
-
-    await navigator.clipboard.writeText(
-      text
-    );
-
-    const old =
-      button.textContent;
-
-    button.textContent =
-      "✓ Skopiowano";
-
-    setTimeout(() => {
-
-      button.textContent =
-        old;
-
-    }, 1500);
-
-  } catch {
-
-    fallbackCopy(
-      text
-    );
-
+    await navigator.clipboard.writeText(text);
+    flashButton(button, "✓ Skopiowano");
+  } catch (error) {
+    fallbackCopy(text);
+    flashButton(button, "✓ Skopiowano");
   }
-
 }
 
 
-async function copyGeneratedScript(button) {
+function copyTerminalCommand(button) {
 
-  const text =
-    document
-      .getElementById("output")
-      .value;
+  if (!latestTerminalCommand) return;
 
-  if (!text) {
-    return;
-  }
+  copyText(latestTerminalCommand, button);
+}
 
-  await copyText(
-    text,
-    button
-  );
 
+function flashButton(button, text) {
+
+  if (!button) return;
+
+  const old = button.textContent;
+  button.textContent = text;
+
+  setTimeout(() => {
+    button.textContent = old;
+  }, 1500);
 }
 
 
 function fallbackCopy(text) {
 
-  const area =
-    document.createElement(
-      "textarea"
-    );
+  const area = document.createElement("textarea");
 
-  area.value =
-    text;
+  area.value = text;
+  area.style.position = "fixed";
+  area.style.opacity = "0";
 
-  area.style.position =
-    "fixed";
-
-  area.style.opacity =
-    "0";
-
-  document.body.appendChild(
-    area
-  );
+  document.body.appendChild(area);
 
   area.select();
+  document.execCommand("copy");
 
-  document.execCommand(
-    "copy"
-  );
-
-  document.body.removeChild(
-    area
-  );
-
+  document.body.removeChild(area);
 }
 
 
-/* ============================================================
-   DOWNLOAD
-   ============================================================ */
-
 function downloadScript() {
 
-  const text =
-    document
-      .getElementById("output")
-      .value;
+  if (!latestScript) return;
 
-  if (!text) {
-    return;
-  }
-
-  const blob =
-    new Blob(
-      [text],
-      {
-        type:
-          "text/x-shellscript;charset=utf-8"
-      }
-    );
-
-  const url =
-    URL.createObjectURL(
-      blob
-    );
-
-  const a =
-    document.createElement(
-      "a"
-    );
-
-  a.href =
-    url;
-
-  a.download =
-    "QualysPatch.sh";
-
-  document.body.appendChild(
-    a
+  const blob = new Blob(
+    [latestScript],
+    { type: "text/x-shellscript;charset=utf-8" }
   );
 
-  a.click();
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
 
-  document.body.removeChild(
-    a
-  );
+  anchor.href = url;
+  anchor.download = "QualysPatch.sh";
 
-  URL.revokeObjectURL(
-    url
-  );
+  document.body.appendChild(anchor);
+  anchor.click();
+  document.body.removeChild(anchor);
 
+  URL.revokeObjectURL(url);
 }
 
 
@@ -2945,26 +2347,59 @@ function downloadScript() {
    HELPERS
    ============================================================ */
 
+function utf8ToBase64(text) {
+
+  const bytes = new TextEncoder().encode(text);
+  let binary = "";
+
+  const chunk = 0x8000;
+
+  for (let i = 0; i < bytes.length; i += chunk) {
+
+    const part = bytes.subarray(i, i + chunk);
+
+    binary += String.fromCharCode(...part);
+  }
+
+  return btoa(binary);
+}
+
+
 function escapeHtml(value) {
 
-  return String(value)
+  return String(value ?? "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
-
 }
 
 
-function shellEscape(value) {
+function jsString(value) {
 
-  return String(value)
-    .replaceAll("\\\\", "\\\\\\\\")
+  return String(value ?? "")
+    .replaceAll("\\", "\\\\")
+    .replaceAll("'", "\\'");
+}
+
+
+function shellField(value) {
+
+  return String(value ?? "")
+    .replaceAll("\\", "\\\\")
     .replaceAll('"', '\\"')
     .replaceAll("$", "\\$")
-    .replaceAll("`", "\\`");
+    .replaceAll("`", "\\`")
+    .replaceAll("|", " ");
+}
 
+
+function clearQualys() {
+
+  document.getElementById("qualysInput").value = "";
+  currentQualysResults = [];
+  renderQualysResults();
 }
 
 
@@ -2972,7 +2407,9 @@ function shellEscape(value) {
    INIT
    ============================================================ */
 
-renderApps();
+renderSelected();
+updateGenerateSummary();
+loadCaskDatabase();
 
 </script>
 
